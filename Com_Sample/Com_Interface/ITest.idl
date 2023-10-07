@@ -1,4 +1,6 @@
+midl_pragma warning( disable: 2111)
 import "unknwn.idl";
+
 
 [
     object,
