@@ -1,0 +1,29 @@
+import "unknwn.idl";
+
+[
+    object,
+    uuid(21fac2e0-d7cd-4a4a-b562-1f74bf6707a5),
+    helpstring("interface  ITest is used for testing COM")
+]
+interface ITest : IUnknown
+{
+    HRESULT     SetFirstNumber(long long nX1);
+
+    HRESULT     SetSecondNumber(long long nX2);
+
+    HRESULT     DoTheAddition([out, retval] long long* pBuffer);
+
+    HRESULT     GetError([out, retval] BSTR* pError);
+};
+
+[
+    uuid(997ef8e9-9979-42b3-8aad-715e35b09633),
+    helpstring("Interfaces for test algorithm implementations .")
+]
+library ComTestLib
+{
+    importlib("stdole32.tlb");
+    importlib("stdole2.tlb");
+
+    interface ITest;
+}
