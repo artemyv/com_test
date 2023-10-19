@@ -30,5 +30,5 @@
 *.exe
 *.out
 *.app
-/Com_Sample/.vs
-/Com_Sample/Com_Interface/*.user
+.vs
+*.user
