@@ -80,7 +80,7 @@ CA::~CA()
 //
 // IUnknown implementation
 //
-HRESULT __stdcall CA::QueryInterface(const IID& iid, void** ppv)
+IFACEMETHODIMP CA::QueryInterface(const IID& iid, void** ppv)
 {    
 	if (iid == IID_IUnknown)
 	{
@@ -107,12 +107,12 @@ HRESULT __stdcall CA::QueryInterface(const IID& iid, void** ppv)
 	return S_OK ;
 }
 
-ULONG __stdcall CA::AddRef()
+IFACEMETHODIMP_(ULONG) CA::AddRef()
 {
 	return InterlockedIncrement(&m_cRef) ;
 }
 
-ULONG __stdcall CA::Release() 
+IFACEMETHODIMP_(ULONG) CA::Release()
 {
 	if (InterlockedDecrement(&m_cRef) == 0)
 	{
@@ -131,15 +131,15 @@ class CFactory : public IClassFactory
 {
 public:
 	// IUnknown
-	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) ;         
-	virtual ULONG   __stdcall AddRef() ;
-	virtual ULONG   __stdcall Release() ;
+	IFACEMETHOD( QueryInterface)(const IID& iid, void** ppv) override ;
+	IFACEMETHOD_( ULONG, AddRef)() override;
+	IFACEMETHOD_(ULONG, Release)() override;
 
 	// Interface IClassFactory
-	virtual HRESULT __stdcall CreateInstance(IUnknown* pUnknownOuter,
+	IFACEMETHOD( CreateInstance)(IUnknown* pUnknownOuter,
 	                                         const IID& iid,
-	                                         void** ppv) ;
-	virtual HRESULT __stdcall LockServer(BOOL bLock) ; 
+	                                         void** ppv) override ;
+	IFACEMETHOD( LockServer)(BOOL bLock) override;
 
 	// Constructor
 	CFactory() : m_cRef(1) {}
@@ -154,7 +154,7 @@ private:
 //
 // Class factory IUnknown implementation
 //
-HRESULT __stdcall CFactory::QueryInterface(const IID& iid, void** ppv)
+IFACEMETHODIMP CFactory::QueryInterface(const IID& iid, void** ppv)
 {    
 	if ((iid == IID_IUnknown) || (iid == IID_IClassFactory))
 	{
@@ -169,12 +169,12 @@ HRESULT __stdcall CFactory::QueryInterface(const IID& iid, void** ppv)
 	return S_OK ;
 }
 
-ULONG __stdcall CFactory::AddRef()
+IFACEMETHODIMP_(ULONG ) CFactory::AddRef()
 {
 	return InterlockedIncrement(&m_cRef) ;
 }
 
-ULONG __stdcall CFactory::Release() 
+IFACEMETHODIMP_(ULONG) CFactory::Release()
 {
 	if (InterlockedDecrement(&m_cRef) == 0)
 	{
@@ -187,7 +187,7 @@ ULONG __stdcall CFactory::Release()
 //
 // IClassFactory implementation
 //
-HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
+IFACEMETHODIMP CFactory::CreateInstance(IUnknown* pUnknownOuter,
                                            const IID& iid,
                                            void** ppv) 
 {
@@ -218,7 +218,7 @@ HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
 }
 
 // LockServer
-HRESULT __stdcall CFactory::LockServer(BOOL bLock) 
+IFACEMETHODIMP CFactory::LockServer(BOOL bLock)
 {
 	if (bLock)
 	{
