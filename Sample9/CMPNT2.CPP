@@ -8,9 +8,9 @@
 #include "CUnknown.h"
 #include "Cmpnt2.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Component 2", msg, S_OK) ;}
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Component 2", msg, hr) ;}
 
 ///////////////////////////////////////////////////////////

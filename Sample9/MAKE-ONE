@@ -21,7 +21,7 @@ DIR_SERVER = OutProc
 #
 # Flags - Always compiles debug.
 #
-CPP_FLAGS = /c /MTd /Zi /Od /D_DEBUG /EHsc
+CPP_FLAGS = /c /MTd /Zi /Od /D_DEBUG /EHsc /std:c++20
 EXE_LINK_FLAGS = /DEBUG
 DLL_LINK_FLAGS = /DLL /DEBUG
 

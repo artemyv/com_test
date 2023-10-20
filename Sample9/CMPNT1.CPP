@@ -8,16 +8,16 @@
 #include "CUnknown.h" // Base class for IUnknown
 #include "Cmpnt1.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Component 1", msg, S_OK) ;}
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Component 1", msg, hr) ;}
 
 ///////////////////////////////////////////////////////////
 //
 // Interface IX
 //
-HRESULT __stdcall CA::FxStringIn(wchar_t* szIn)
+HRESULT __stdcall CA::FxStringIn(const wchar_t* szIn)
 { 
 	// Display the incoming string.
 	std::ostrstream sout ;
@@ -105,7 +105,7 @@ HRESULT __stdcall CA::NondelegatingQueryInterface(const IID& iid,
 //
 HRESULT CA::Init()
 {
-	trace("Create Component 2, which is aggregated.") ;
+	trace("CA::Init: Create Component 2, which is aggregated.") ;
 	HRESULT hr = CoCreateInstance(CLSID_Component2, 
 	                              GetOuterUnknown(), 
 	                              CLSCTX_INPROC_SERVER,
@@ -114,22 +114,22 @@ HRESULT CA::Init()
 	                              (void**)&m_pUnknownInner) ;
 	if (FAILED(hr))
 	{
-		trace("Could not create inner component.", hr) ;
+		trace("CA::Init: Could not create inner component.", hr) ;
 		return E_FAIL ;
 	}
 
-	trace("Get pointer to interface IZ to cache.") ;
+	trace("CA::Init: Get pointer to interface IZ to cache.") ;
 	hr = m_pUnknownInner->QueryInterface(IID_IZ, (void**)&m_pIZ) ;
 	if (FAILED(hr))
 	{
-		trace("Inner component does not support IZ.", hr) ;
+		trace("CA::Init: Inner component does not support IZ.", hr) ;
 		m_pUnknownInner->Release() ;
 		m_pUnknownInner = NULL ;
 		return E_FAIL ;
 	}
 
 	// Decrement the reference count caused by the QI call.
-	trace("Got IZ interface pointer. Release reference.") ;
+	trace("CA::Init: Got IZ interface pointer. Release reference.") ;
 	GetOuterUnknown()->Release() ;
 	return S_OK ;
 }

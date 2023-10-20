@@ -6,6 +6,7 @@
 #include <assert.h>
 
 #include "Registry.h"
+#include "Util.h"
 
 ////////////////////////////////////////////////////////
 //
@@ -17,10 +18,6 @@ BOOL setKeyAndValue(const char* pszPath,
                     const char* szSubkey,
                     const char* szValue) ;
 
-// Convert a CLSID into a char string.
-void CLSIDtochar(const CLSID& clsid, 
-                 char* szCLSID,
-                 int length) ;
 
 // Determine if a particular subkey exists.
 BOOL SubkeyExists(const char* pszPath,
@@ -34,8 +31,6 @@ LONG recursiveDeleteKey(HKEY hKeyParent, const char* szKeyChild) ;
 // Constants
 //
 
-// Size of a CLSID as a string
-const int CLSID_STRING_SIZE = 39 ;
 
 /////////////////////////////////////////////////////////
 //
@@ -148,29 +143,6 @@ LONG UnregisterServer(const CLSID& clsid,         // Class ID
 		       (lResult == ERROR_FILE_NOT_FOUND)) ; // Subkey may not exist.
 	}
 	return S_OK ;
-}
-
-///////////////////////////////////////////////////////////
-//
-// Internal helper functions
-//
-
-// Convert a CLSID to a char string.
-void CLSIDtochar(const CLSID& clsid,
-                 char* szCLSID,
-                 int length)
-{
-	assert(length >= CLSID_STRING_SIZE) ;
-	// Get CLSID
-	LPOLESTR wszCLSID = NULL ;
-	HRESULT hr = StringFromCLSID(clsid, &wszCLSID) ;
-	assert(SUCCEEDED(hr)) ;
-
-	// Covert from wide characters to non-wide.
-	wcstombs(szCLSID, wszCLSID, length) ;
-
-	// Free memory.
-	CoTaskMemFree(wszCLSID) ;
 }
 
 //

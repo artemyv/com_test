@@ -25,7 +25,7 @@ private:
 		NondelegatingQueryInterface( const IID& iid, void** ppv) ;			
 	
 	// Interface IX
-	virtual HRESULT __stdcall FxStringIn(wchar_t* szIn) ; 
+	virtual HRESULT __stdcall FxStringIn(const wchar_t* szIn) ; 
 	virtual HRESULT __stdcall FxStringOut(wchar_t** pszOut) ;
 
 	// Initialization

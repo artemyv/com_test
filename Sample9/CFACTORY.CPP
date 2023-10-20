@@ -9,6 +9,13 @@
 #include "Registry.h"
 #include "CFactory.h"
 
+#include "UTIL.H"
+#include <format>
+static inline void trace(const char* msg)
+{
+	Util::Trace("CFactory", msg, S_OK);
+}
+
 ///////////////////////////////////////////////////////////
 //
 // Static variables
@@ -29,6 +36,7 @@ DWORD CFactory::s_dwThreadID = 0 ;
 CFactory::CFactory(const CFactoryData* pFactoryData)
 : m_cRef(1)
 {
+	trace("Constructor");
 	m_pFactoryData = pFactoryData ;
 }
 
@@ -37,6 +45,7 @@ CFactory::CFactory(const CFactoryData* pFactoryData)
 //
 HRESULT __stdcall CFactory::QueryInterface(REFIID iid, void** ppv)
 { 	
+	trace("CFactory::QueryInterface");
 	IUnknown* pI ;
 	if ((iid == IID_IUnknown) || (iid == IID_IClassFactory))
 	{
@@ -54,12 +63,14 @@ HRESULT __stdcall CFactory::QueryInterface(REFIID iid, void** ppv)
 
 ULONG __stdcall CFactory::AddRef() 
 { 
-	return ::InterlockedIncrement(&m_cRef) ; 
+	trace("CFactory::AddRef");
+	return ::InterlockedIncrement(&m_cRef) ;
 }
 
 ULONG __stdcall CFactory::Release() 
 {
-	if (::InterlockedDecrement(&m_cRef) == 0) 
+	trace("CFactory::Release");
+	if (::InterlockedDecrement(&m_cRef) == 0)
 	{
 		delete this; 
 		return 0 ;
@@ -75,6 +86,10 @@ HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
                                            const IID& iid,
                                            void** ppv) 
 {
+	char szIID[CLSID_STRING_SIZE + 1] = " ";
+	CLSIDtochar(iid, szIID + 1, sizeof(szIID) - 1);
+
+	trace(std::format("CFactory::CreateInstance pUnknownOuter={}, iid={}", (void*)pUnknownOuter, szIID).c_str());
 
 	// Aggregate only if the requested IID is IID_IUnknown.
 	if ((pUnknownOuter != NULL) && (iid != IID_IUnknown))
@@ -111,7 +126,8 @@ HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
 // LockServer
 HRESULT __stdcall CFactory::LockServer(BOOL bLock) 
 {
-	if (bLock) 
+	trace("CFactory::LockServer");
+	if (bLock)
 	{
 		::InterlockedIncrement(&s_cServerLocks) ; 
 	}
@@ -136,6 +152,15 @@ HRESULT CFactory::GetClassObject(const CLSID& clsid,
                                  const IID& iid, 
                                  void** ppv)
 {
+	// Convert the CLSID into a char.
+	char szCLSID[CLSID_STRING_SIZE + 1] = " ";
+	CLSIDtochar(clsid, szCLSID + 1, sizeof(szCLSID) - 1);
+
+	char szIID[CLSID_STRING_SIZE + 1] = " ";
+	CLSIDtochar(iid, szIID + 1, sizeof(szIID) - 1);
+
+	trace(std::format("CFactory::GetClassObject CLSID={} iid={}", szCLSID, szIID).c_str());
+
 	if ((iid != IID_IUnknown) && (iid != IID_IClassFactory))
 	{
 		return E_NOINTERFACE ;
@@ -152,6 +177,8 @@ HRESULT CFactory::GetClassObject(const CLSID& clsid,
 			// create. So create a class factory for this component.
 			// Pass the CFactoryData structure to the class factory
 			// so that it knows what kind of components to create.
+			trace(std::format("Going to create factory for {}", pData->m_RegistryName).c_str());
+
 			*ppv = (IUnknown*) new CFactory(pData) ;
 			if (*ppv == NULL)
 			{
@@ -168,6 +195,7 @@ HRESULT CFactory::GetClassObject(const CLSID& clsid,
 //
 HRESULT CFactory::CanUnloadNow()
 {
+	trace("CFactory::CanUnloadNow");
 	if (CUnknown::ActiveComponents() || IsLocked())
 	{
 		return S_FALSE ;
@@ -183,6 +211,7 @@ HRESULT CFactory::CanUnloadNow()
 //
 HRESULT CFactory::RegisterAll()
 {
+	trace("CFactory::RegisterAll");
 	for(int i = 0 ; i < g_cFactoryDataEntries ; i++)
 	{
 		RegisterServer(s_hModule,
@@ -196,7 +225,8 @@ HRESULT CFactory::RegisterAll()
 	
 HRESULT CFactory::UnregisterAll()
 {
-	for(int i = 0 ; i < g_cFactoryDataEntries ; i++)   
+	trace("CFactory::UnregisterAll");
+	for(int i = 0 ; i < g_cFactoryDataEntries ; i++)
 	{
 		UnregisterServer(*(g_FactoryDataArray[i].m_pCLSID),
 		                 g_FactoryDataArray[i].m_szVerIndProgID, 
@@ -213,7 +243,8 @@ HRESULT CFactory::UnregisterAll()
 
 STDAPI DllCanUnloadNow()
 {
-	return CFactory::CanUnloadNow() ; 
+	trace("DllCanUnloadNow");
+	return CFactory::CanUnloadNow() ;
 }
 
 //
@@ -223,6 +254,16 @@ STDAPI DllGetClassObject(const CLSID& clsid,
                          const IID& iid,
                          void** ppv) 
 {
+
+	// Convert the CLSID into a char.
+	char szCLSID[CLSID_STRING_SIZE+1] = " ";
+	CLSIDtochar(clsid, szCLSID+1, sizeof(szCLSID)-1);
+
+	char szIID[CLSID_STRING_SIZE + 1] = " ";
+	CLSIDtochar(iid, szIID + 1, sizeof(szIID) - 1);
+
+	trace(std::format("DllGetClassObject CLSID={} iid={}", szCLSID, szIID).c_str());
+
 	return CFactory::GetClassObject(clsid, iid, ppv) ;
 }
 
@@ -231,12 +272,14 @@ STDAPI DllGetClassObject(const CLSID& clsid,
 //
 STDAPI DllRegisterServer()
 {
+	trace("DllRegisterServer");
 	return CFactory::RegisterAll() ;
 }
 
 
 STDAPI DllUnregisterServer()
 {
+	trace("DllUnregisterServer");
 	return CFactory::UnregisterAll() ;
 }
 
@@ -248,8 +291,10 @@ BOOL APIENTRY DllMain(HANDLE hModule,
                       DWORD dwReason, 
                       void* lpReserved )
 {
+	trace("DllMain");
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
+		trace("\tDLL_PROCESS_ATTACH");
 		CFactory::s_hModule = (HMODULE) hModule ;
 	}
 	return TRUE ;

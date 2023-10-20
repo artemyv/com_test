@@ -9,9 +9,9 @@
 #include "Util.h"
 #include "Iface.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Client", msg, S_OK) ;} 
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Client", msg, hr) ;}
 
 int main()
@@ -38,6 +38,7 @@ int main()
 	CoInitialize(NULL) ;
 
 	IX* pIX = NULL; 
+	trace("Calling CoCreateInstance CLSID_Component1 IID_IX.");
 	HRESULT hr = CoCreateInstance(CLSID_Component1,
 	                              NULL, clsctx, 
 	                              IID_IX, (void**)&pIX) ;

@@ -19,7 +19,7 @@ import "unknwn.idl" ;
 ]
 interface IX : IUnknown
 {
-	HRESULT FxStringIn([in, string] wchar_t* szIn) ;
+	HRESULT FxStringIn([in, string] const wchar_t* szIn) ;
 	HRESULT FxStringOut([out, string] wchar_t** szOut) ;
 } ;
 

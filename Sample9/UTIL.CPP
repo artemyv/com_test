@@ -7,6 +7,8 @@
 #include <stdio.h>    //sprintf
 #include <stdlib.h>
 #include <assert.h>
+#include <format>
+
 // #include <tchar.h>
 
 #include "util.h"
@@ -35,46 +37,43 @@
 //
 namespace Util
 {
+//
+// Print out the COM/OLE error string for an HRESULT.
+//
+	std::string ErrorMessage(HRESULT hr)
+	{
+		if (SUCCEEDED(hr))
+		{
+			return {};
+		}
+		void* pMsgBuf;
+
+		::FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+			NULL,
+			hr,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			(LPTSTR)&pMsgBuf,
+			0,
+			NULL
+		);
+
+		auto ret = std::format(" Err: {:#x}: \t{}", hr, (const char*)pMsgBuf);
+
+		// Free the buffer.
+		LocalFree(pMsgBuf);
+		return ret;
+	}
+
 
 //
 // Print out a message with a label.
 //
-void Trace(char* szLabel, char* szText, HRESULT hr)
+void Trace(const char* szLabel, const char* szText, HRESULT hr)
 {
-	char buf[256] ;
-	sprintf(buf, "%s: \t%s", szLabel, szText) ;
-	output(buf) ;
-
-	if (FAILED(hr))
-	{
-		ErrorMessage(hr) ;
-	}
+	output(std::format("{}: \t{}{}", szLabel, szText, ErrorMessage(hr)).c_str());
 }
 
-//
-// Print out the COM/OLE error string for an HRESULT.
-//
-void ErrorMessage(HRESULT hr)
-{
-	void* pMsgBuf ;
- 
-	::FormatMessage( 
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-		(LPTSTR)&pMsgBuf,
-		0,
-		NULL 
-	) ;
-
-	char buf[256] ;
-	sprintf(buf, "Error (%x): %s", hr, (char*)pMsgBuf) ;
-	output(buf) ;
-		
-	// Free the buffer.
-	LocalFree(pMsgBuf) ;
-}
 
 } ; // End Namespace Util
 
@@ -100,4 +99,27 @@ std::ostream& operator<< (std::ostream& os, const wchar_t* wsz )
 	// cleanup
 	delete [] psz ;
 	return os ;
+}
+
+///////////////////////////////////////////////////////////
+//
+// Internal helper functions
+//
+
+// Convert a CLSID to a char string.
+void CLSIDtochar(const CLSID& clsid,
+	char* szCLSID,
+	int length)
+{
+	assert(length >= CLSID_STRING_SIZE);
+	// Get CLSID
+	LPOLESTR wszCLSID = NULL;
+	HRESULT hr = StringFromCLSID(clsid, &wszCLSID);
+	assert(SUCCEEDED(hr));
+
+	// Covert from wide characters to non-wide.
+	wcstombs(szCLSID, wszCLSID, length);
+
+	// Free memory.
+	CoTaskMemFree(wszCLSID);
 }
