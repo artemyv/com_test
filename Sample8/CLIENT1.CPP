@@ -1,7 +1,6 @@
 //
 // Client1.cpp - Client implementation without smart pointers
 //
-#include <iostream.h>
 #include <objbase.h>
 
 #include "Iface.h"

@@ -85,7 +85,7 @@ public:
 	T* operator=(IUnknown* pI)
 	{
 		IUnknown* pOld = m_pI ;       // Save current value.
-		m_pI == NULL ;
+		m_pI = NULL ;
 
 		// Query for correct interface.
 		if (pI != NULL)

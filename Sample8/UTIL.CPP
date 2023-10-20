@@ -3,9 +3,7 @@
 //   - Common utilities for printing out messages
 //
 #include <objbase.h>
-#include <stdlib.h>
-#include <iostream.h>
-#include <assert.h>
+#include <iostream>
 
 #include "Util.h"
 
@@ -16,10 +14,10 @@ namespace Util
 //
 void Trace(char* szLabel, const char* szText, HRESULT hr)
 {
-	cout << szLabel
+	std::cout << szLabel
 	     << ": \t"
 	     << szText 
-	     << endl ;
+	     << '\n';
 
 	if (FAILED(hr))
 	{
@@ -35,7 +33,7 @@ void ErrorMessage(HRESULT hr)
 {
 	void* pMsgBuf ;
  
-	::FormatMessage( 
+	::FormatMessageA( 
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
 		NULL,
 		hr,
@@ -44,8 +42,8 @@ void ErrorMessage(HRESULT hr)
 		0,
 		NULL) ;
 
-	cout << "Error (" << hex << hr << "):  " 
-	     << (LPTSTR)pMsgBuf << endl ;
+	std::cout << "Error (" << std::hex << hr << "):  " 
+		<< (LPTSTR)pMsgBuf << '\n';
 
 	// Free the buffer.
 	LocalFree(pMsgBuf) ;
