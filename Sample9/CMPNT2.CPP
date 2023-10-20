@@ -2,7 +2,7 @@
 // Cmpnt2.cpp - Component 2
 //
 #include <objbase.h>
-
+#include <strstream>
 #include "Iface.h"
 #include "Util.h"
 #include "CUnknown.h"
@@ -27,7 +27,7 @@ HRESULT __stdcall CB::FyCount(long* sizeArray)
 HRESULT __stdcall CB::FyArrayIn(long sizeIn, long arrayIn[])
 {
 	// Display the array passed in.
-	ostrstream sout ;
+	std::ostrstream sout ;
 	sout << "FyArrayIn received " 
 	     << sizeIn
 	     << " elements: " ;
@@ -35,7 +35,7 @@ HRESULT __stdcall CB::FyArrayIn(long sizeIn, long arrayIn[])
 	{
 		sout << " " << arrayIn[i] ;
 	}
-	sout << "." << ends ;
+	sout << "." << std::ends ;
 	trace(sout.str()) ;
 
 	// Delete the internal array.
@@ -46,7 +46,7 @@ HRESULT __stdcall CB::FyArrayIn(long sizeIn, long arrayIn[])
 	m_sizeArray = sizeIn ;
 
 	// Copy the array passed in into the internal array.
-	for (i = 0 ; i < sizeIn ; i++)
+	for (int i = 0 ; i < sizeIn ; i++)
 	{
 		m_array[i] = arrayIn[i];
 	}

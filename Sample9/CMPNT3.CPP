@@ -2,7 +2,7 @@
 // Cmpnt3.cpp - Component 3
 //
 #include <objbase.h>
-
+#include <strstream>
 #include "Iface.h"
 #include "Util.h"
 #include "CUnknown.h"
@@ -19,12 +19,12 @@ static inline void trace(char* msg, HRESULT hr)
 //
 HRESULT __stdcall CC::FzStructIn(Point3d pt)
 { 
-	strstream sout ;
+	std::strstream sout ;
 	sout << "FzStructIn received ("
 	     << pt.x << ", "
 	     << pt.y << ", "
 	     << pt.z << ")."
-	     << ends ;
+	     << std::ends ;
 	trace(sout.str()) ;
 
 	m_pt = pt ;

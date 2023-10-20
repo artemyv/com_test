@@ -4,7 +4,7 @@
 //
 // Util.h - Shared utilities
 //
-#include <strstrea.h>
+#include <ostream>
 
 namespace Util
 {
@@ -18,6 +18,6 @@ namespace Util
 // Overloaded insertion operator for converting from
 // Unicode (wchar_t) to non-Unicode.
 //
-ostream& operator<< ( ostream& os, const wchar_t* wsz ) ;
+std::ostream& operator<< ( std::ostream& os, const wchar_t* wsz ) ;
 
 #endif // __Util_h__

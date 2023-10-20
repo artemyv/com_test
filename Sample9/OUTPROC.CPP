@@ -126,7 +126,7 @@ BOOL InitWindow(int nCmdShow)
 	wcListview.hIcon = ::LoadIcon(CFactory::s_hModule,
 	                              MAKEINTRESOURCE(IDC_ICON)) ;
 	wcListview.hCursor = ::LoadCursor(NULL, IDC_ARROW) ;
-	wcListview.hbrBackground = ::GetStockObject(WHITE_BRUSH) ; 
+	wcListview.hbrBackground = (HBRUSH)::GetStockObject(WHITE_BRUSH);
 	wcListview.lpszMenuName = NULL ;  
 	wcListview.lpszClassName = "MyServerWinClass" ;
 

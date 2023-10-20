@@ -8,5 +8,7 @@
 # Either command can be used separately to build just one server.
 #
 always:
+	echo First pass
 	nmake -f make-one
+	echo Second pass OUTPROC=1
 	nmake -f make-one OUTPROC=1

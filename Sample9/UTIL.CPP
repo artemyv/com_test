@@ -23,10 +23,10 @@
 
 #else
 // We are building an in-proc server.
-#include <iostream.h>
+#include <iostream>
 	static inline void output(const char* sz)
 	{
-		cout << sz << endl ;
+		std::cout << sz << std::endl ;
 	}
 #endif //_OUTPROC_SERVER_
 
@@ -83,7 +83,7 @@ void ErrorMessage(HRESULT hr)
 // Overloaded ostream insertion operator
 // Converts from wchar_t to char
 //
-ostream& operator<< ( ostream& os, const wchar_t* wsz )
+std::ostream& operator<< (std::ostream& os, const wchar_t* wsz )
 {
 	// Length of incoming string
 	int iLength = wcslen(wsz)+1 ;

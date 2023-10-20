@@ -2,7 +2,8 @@
 // Client.cpp - client implementation
 //
 #include <objbase.h>
-#include <iostream.h>
+#include <iostream>
+#include <strstream>
 #include <assert.h>
 
 #include "Util.h"
@@ -15,11 +16,11 @@ static inline void trace(char* msg, HRESULT hr)
 
 int main()
 {
-	cout << "To which server do you want to connect?\r\n"
+	std::cout << "To which server do you want to connect?\r\n"
 	     << "1) In-proc Server\r\n" 
 	     << "2) Local Server\r\n:" ;
 	int i = 0 ;
-	cin >> i ;
+	std::cin >> i ;
 
 	DWORD clsctx ;
 	if (i == 1)
@@ -51,10 +52,10 @@ int main()
 		assert(SUCCEEDED(hr)) ;
 
 		// Display returned string.
-		ostrstream sout ;
+		std::ostrstream sout ;
 		sout << "FxStringOut returned a string:  "
 		     << szOut
-		     << ends ;
+		     << std::ends ;
 		trace(sout.str()) ;
 
 		// Free the returned string.
@@ -86,7 +87,7 @@ int main()
 			assert(SUCCEEDED(hr)) ;
 
 			// Display the array returned from the function.
-			ostrstream sout ;
+			std::ostrstream sout ;
 			sout	<< "FyArray returned " 
 			      << sizeOut
 			      << " elements: " ;
@@ -94,7 +95,7 @@ int main()
 			{
 				sout << " " << arrayOut[i] ;
 			}
-			sout << "." << ends ;
+			sout << "." << std::ends ;
 			trace(sout.str()) ;
 
 			// Cleanup
@@ -125,12 +126,12 @@ int main()
 			Point3d ptOut ;
 			hr = pIZ->FzStructOut(&ptOut) ;
 			assert(SUCCEEDED(hr)) ;
-			strstream sout ;
+			std::strstream sout ;
 			sout << "FzStructOut returned ("
 			     << ptOut.x << ", "
 			     << ptOut.y << ", "
 			     << ptOut.z << ")."
-			     << ends ;
+			     << std::ends ;
 			trace(sout.str()) ;
 
 			pIZ->Release() ;

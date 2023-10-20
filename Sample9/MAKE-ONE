@@ -21,9 +21,9 @@ DIR_SERVER = OutProc
 #
 # Flags - Always compiles debug.
 #
-CPP_FLAGS = /c /MTd /Zi /Od /D_DEBUG 
-EXE_LINK_FLAGS = /NOD /DEBUG
-DLL_LINK_FLAGS = /NOD /DLL /DEBUG
+CPP_FLAGS = /c /MTd /Zi /Od /D_DEBUG /EHsc
+EXE_LINK_FLAGS = /DEBUG
+DLL_LINK_FLAGS = /DLL /DEBUG
 
 LIBS = kernel32.lib uuid.lib advapi32.lib ole32.lib
 
@@ -43,17 +43,16 @@ iface.h server.tlb proxy.c guids.c dlldata.c : server.idl
 
 !IF "$(OUTPROC)" != ""
 dlldata.obj : dlldata.c 
-	cl /c /DWIN32 /DREGISTER_PROXY_DLL dlldata.c
+	cl /c /MTd /DWIN32 /DREGISTER_PROXY_DLL dlldata.c
 
 proxy.obj : proxy.c 
-	cl /c /DWIN32 /DREGISTER_PROXY_DLL proxy.c
+	cl /c /MTd /DWIN32 /DREGISTER_PROXY_DLL proxy.c
 
 PROXYSTUBOBJS = dlldata.obj   \
                 proxy.obj     \
                 guids.obj
 
 PROXYSTUBLIBS = kernel32.lib  \
-                rpcndr.lib    \
                 rpcns4.lib    \
                 rpcrt4.lib    \
                 uuid.lib 
@@ -61,7 +60,7 @@ PROXYSTUBLIBS = kernel32.lib  \
 proxy.dll : $(PROXYSTUBOBJS) proxy.def
 	link /dll /out:proxy.dll /def:proxy.def   \
 		$(PROXYSTUBOBJS) $(PROXYSTUBLIBS)
-	regsvr32 /s proxy.dll
+#	regsvr32 /s proxy.dll
 
 !ENDIF 
 
@@ -71,7 +70,8 @@ proxy.dll : $(PROXYSTUBOBJS) proxy.def
 #
 
 guids.obj : guids.c
-		cl /c /DWIN32 /DREGISTER_PROXY_DLL guids.c
+	echo Compiling guids.obj
+	cl /c /MTd /DWIN32 /DREGISTER_PROXY_DLL guids.c
 
 #################################################
 #
@@ -79,18 +79,22 @@ guids.obj : guids.c
 #
 
 $(DIR_SERVER)\server.obj : server.cpp cunknown.h cfactory.h iface.h
+	echo Compiling server.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS)  /Fo"$*.obj" server.cpp
 
 $(DIR_SERVER)\cmpnt1.obj : cmpnt1.cpp cmpnt1.h iface.h registry.h   \
 		CUnknown.h
+	echo Compiling cmpnt1.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) /Fo"$*.obj" cmpnt1.cpp
 
 $(DIR_SERVER)\cmpnt2.obj : cmpnt2.cpp cmpnt2.h iface.h registry.h   \
 		CUnknown.h
+	echo Compiling cmpnt2.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) /Fo"$*.obj" cmpnt2.cpp
 
 $(DIR_SERVER)\cmpnt3.obj : cmpnt3.cpp cmpnt3.h iface.h registry.h   \
 		CUnknown.h
+	echo Compiling cmpnt3.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) /Fo"$*.obj" cmpnt3.cpp
 
 #
@@ -98,23 +102,29 @@ $(DIR_SERVER)\cmpnt3.obj : cmpnt3.cpp cmpnt3.h iface.h registry.h   \
 #
 
 $(DIR_SERVER)\CUnknown.obj : CUnknown.cpp CUnknown.h
+	echo Compiling CUnknown.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" CUnknown.cpp
 
 $(DIR_SERVER)\CFactory.obj : CFactory.cpp CFactory.h
+	echo Compiling CFactory.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" CFactory.cpp
 
 $(DIR_SERVER)\registry.obj : registry.cpp registry.h
+	echo Compiling registry.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" registry.cpp
 
 # util.cpp compiled for server.
 $(DIR_SERVER)\util.obj : util.cpp util.h
+	echo Compiling util.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" util.cpp 
 
 !IF "$(OUTPROC)" != ""
 $(DIR_SERVER)\outproc.obj : outproc.cpp CFactory.h CUnknown.h
+	echo Compiling outproc.obj in $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" outproc.cpp
 
 server.res : server.rc 
+	echo Compiling server.res
 	rc /l 0x409 server.rc
 !ENDIF
 
@@ -124,11 +134,13 @@ server.res : server.rc
 # Client source files
 #
 
-Client.obj : Client.cpp Iface.h Util.h
+Client.obj : CLIENT.CPP iface.h UTIL.H
+	echo Compiling Client.obj
 	cl $(CPP_FLAGS) Client.cpp
 
 # Util.cpp compiled for the client.
-Util.obj : Util.cpp Util.h
+Util.obj : UTIL.CPP UTIL.H
+	echo Compiling Util.obj
 	cl $(CPP_FLAGS) Util.cpp 
 
 #################################################
@@ -148,15 +160,15 @@ SERVER_OBJS = $(DIR_SERVER)\Server.obj     \
 
 !IF "$(OUTPROC)" == ""
 Server.dll:  $(SERVER_OBJS) Server.def 
-	link $(DLL_LINK_FLAGS) $(SERVER_OBJS) libcmtd.lib   \
-		libcimtd.lib $(LIBS) /DEF:Server.def 
-	regsvr32 -s Server.dll
+	echo linking Server.dll
+	link $(DLL_LINK_FLAGS) $(SERVER_OBJS) $(LIBS) /DEF:Server.def 
+#	regsvr32 -s Server.dll
 
 !ELSE
 Server.exe:  $(SERVER_OBJS) $(DIR_SERVER)\outproc.obj Server.res 
+	echo linking Server.exe
 	link $(EXE_LINK_FLAGS) $(SERVER_OBJS)	               \
-		$(DIR_SERVER)\Outproc.obj Server.res libcmtd.lib   \
-		libcimtd.lib $(LIBS) user32.lib gdi32.lib
+		$(DIR_SERVER)\Outproc.obj Server.res $(LIBS) user32.lib gdi32.lib
 	server /RegServer
 !ENDIF
 
@@ -167,7 +179,7 @@ Server.exe:  $(SERVER_OBJS) $(DIR_SERVER)\outproc.obj Server.res
 #
 
 Client.exe : Client.obj Guids.obj Util.obj
-	link $(EXE_LINK_FLAGS) Client.obj Guids.obj Util.obj   \
-		libcmtd.lib libcimtd.lib $(LIBS) 
+	echo linking Client.exe
+	link $(EXE_LINK_FLAGS) Client.obj Guids.obj Util.obj $(LIBS) 
 
 

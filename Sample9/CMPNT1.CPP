@@ -2,7 +2,7 @@
 // Cmpnt1.cpp - Component 1
 //
 #include <objbase.h>
-
+#include <strstream>
 #include "Iface.h"
 #include "Util.h"
 #include "CUnknown.h" // Base class for IUnknown
@@ -20,10 +20,10 @@ static inline void trace(char* msg, HRESULT hr)
 HRESULT __stdcall CA::FxStringIn(wchar_t* szIn)
 { 
 	// Display the incoming string.
-	ostrstream sout ;
+	std::ostrstream sout ;
 	sout << "FxStringIn received a string:  "
 	     << szIn
-	     << ends ;
+	     << std::ends ;
 	trace(sout.str()) ;
 	return S_OK ;
 }
