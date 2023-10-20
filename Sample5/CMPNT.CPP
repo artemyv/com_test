@@ -38,15 +38,15 @@ class CA : public IX,
 {
 public:
 	// IUnknown
-	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) ;
-	virtual ULONG __stdcall AddRef() ;
-	virtual ULONG __stdcall Release() ;
+	IFACEMETHOD( QueryInterface) (const IID& iid, void** ppv) override;
+	IFACEMETHOD_(ULONG, AddRef)() override;
+	IFACEMETHOD_(ULONG, Release)() override;
 
 	// Interface IX
-	virtual void __stdcall Fx() { trace( "Fx") ;}
+	IFACEMETHOD(Fx)() override { trace("Fx"); return S_OK; }
 
 	// Interface IY
-	virtual void __stdcall Fy() { trace( "Fy") ;} 
+	IFACEMETHOD(Fy)() override { trace("Fy"); return S_OK; }
 
 	// Constructor
 	CA() ;

@@ -4,21 +4,25 @@
 //    Declarations of interfaces, IIDs, and CLSID
 //    shared by the client and the component.
 //
-interface IX : IUnknown
+DECLARE_INTERFACE_IID_(IX,IUnknown, "32bb8320-b41b-11cf-a6bb-0080c7b2d682")
 {
-	virtual void pascal Fx() = 0 ;
+	BEGIN_INTERFACE
+		STDMETHOD(Fx)() PURE;
+	END_INTERFACE
 };
 
-
-interface IY : IUnknown
+DECLARE_INTERFACE_IID_(IY, IUnknown, "32bb8321-b41b-11cf-a6bb-0080c7b2d682")
 {
-	virtual void pascal Fy() = 0 ;
+	BEGIN_INTERFACE
+		STDMETHOD(Fy)() PURE;
+	END_INTERFACE
 };
 
-
-interface IZ : IUnknown
+DECLARE_INTERFACE_IID_(IZ, IUnknown, "32bb8322-b41b-11cf-a6bb-0080c7b2d682")
 {
-	virtual void pascal Fz() = 0 ;
+	BEGIN_INTERFACE
+		STDMETHOD(Fz)() PURE;
+	END_INTERFACE
 };
 
 //
