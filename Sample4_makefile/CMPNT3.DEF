@@ -1,0 +1,8 @@
+;
+; Cmpnt3 module-definition file
+;
+
+LIBRARY         Cmpnt3.dll
+
+EXPORTS
+                CreateInstance @1	PRIVATE
