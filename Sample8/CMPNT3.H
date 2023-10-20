@@ -22,10 +22,10 @@ private:
 
 	// Nondelegating IUnknown
 	virtual HRESULT __stdcall
-		NondelegatingQueryInterface( const IID& iid, void** ppv) ;
+		NondelegatingQueryInterface( const IID& iid, void** ppv) override ;
 
 	// Interface IZ
-	virtual void __stdcall Fz() ;
+	virtual void __stdcall Fz() override;
 
 	// Constructor
 	CC(IUnknown* pUnknownOuter) ;

@@ -7,6 +7,7 @@
 namespace Util
 {
 	void Trace(char* szLabel, const char* szText, HRESULT hr) ;
+	void Trace(char* szLabel, void* pointer, const char* szText, int count);
 
 	void ErrorMessage(HRESULT hr) ;
 } ;

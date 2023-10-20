@@ -26,6 +26,14 @@ void Trace(char* szLabel, const char* szText, HRESULT hr)
 
 }
 
+void Trace(char* szLabel, void* pointer, const char* szText, int count)
+{
+	std::cout << szLabel << pointer
+		<< ": \t"
+		<< szText << count
+		<< '\n';
+}
+
 //
 // Print out the COM/OLE error string for an HRESULT.
 //

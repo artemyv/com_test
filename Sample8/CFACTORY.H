@@ -57,15 +57,15 @@ class CFactory : public IClassFactory
 {
 public:
 	// IUnknown
-	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) ;
-	virtual ULONG   __stdcall AddRef() ;
-	virtual ULONG   __stdcall Release() ;
+	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv)  override;
+	virtual ULONG   __stdcall AddRef()  override;
+	virtual ULONG   __stdcall Release()  override;
 	
 	// IClassFactory
 	virtual HRESULT __stdcall CreateInstance(IUnknown* pUnknownOuter,
 	                                         const IID& iid,
-	                                         void** ppv) ;
-	virtual HRESULT __stdcall LockServer(BOOL bLock) ; 
+	                                         void** ppv)  override;
+	virtual HRESULT __stdcall LockServer(BOOL bLock)  override;
 
 	// Constructor - Pass pointer to data of component to create.
 	CFactory(const CFactoryData* pFactoryData) ;

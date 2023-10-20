@@ -1,6 +1,7 @@
 //
 // Cmpnt1.cpp - Component 1
 //
+#include <iostream>
 #include <objbase.h>
 
 #include "Iface.h"
@@ -47,6 +48,7 @@ CA::~CA()
 HRESULT __stdcall 
 	CA::NondelegatingQueryInterface(const IID& iid, void** ppv)
 { 	
+	trace("NondelegatingQueryInterface");
 	if (iid == IID_IX)
 	{
 		return FinishQI(static_cast<IX*>(this), ppv) ;
@@ -107,6 +109,7 @@ HRESULT CA::Init()
 //
 void CA::FinalRelease()
 {
+	trace("FinalRelease");
 	// Call base class to incremement m_cRef and prevent recursion.
 	CUnknown::FinalRelease() ;
 
@@ -132,6 +135,7 @@ void CA::FinalRelease()
 HRESULT CA::CreateInstance(IUnknown* pUnknownOuter,
                            CUnknown** ppNewComponent) 
 {
+	trace("CreateInstance");
 	if (pUnknownOuter != NULL)
 	{
 		// Don't allow aggregation (just for the heck of it).
@@ -139,5 +143,7 @@ HRESULT CA::CreateInstance(IUnknown* pUnknownOuter,
 	}
 	
 	*ppNewComponent = new CA(pUnknownOuter) ;
+
+	std::cout << "CA is " << (void*)*ppNewComponent << '\n';
 	return S_OK ;
 }

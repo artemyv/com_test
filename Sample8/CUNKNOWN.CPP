@@ -11,6 +11,11 @@ static inline void trace(char* msg)
 static inline void trace(char* msg, HRESULT hr)
 	{Util::Trace("CUnknown", msg, hr) ;}
 
+static inline void trace(void* p, char* msg, int count)
+{
+	Util::Trace("CUnknown for ", p, msg, count);
+}
+
 ///////////////////////////////////////////////////////////
 //
 // Count of active objects
@@ -26,6 +31,7 @@ long CUnknown::s_cActiveComponents = 0 ;
 CUnknown::CUnknown(IUnknown* pUnknownOuter)
 : m_cRef(1)
 {
+	trace(this, "Init to ", 1);
 	// Set m_pUnknownOuter pointer.
 	if (pUnknownOuter == NULL)
 	{
@@ -59,6 +65,7 @@ void CUnknown::FinalRelease()
 {
 	trace("Increment reference count for final release.") ;
 	m_cRef = 1 ;
+	trace(this, "forced to ", 1);
 }
 
 //
@@ -86,7 +93,11 @@ HRESULT __stdcall
 //
 ULONG __stdcall CUnknown::NondelegatingAddRef()
 {
-	return ::InterlockedIncrement(&m_cRef) ;
+	auto ret = ::InterlockedIncrement(&m_cRef) ;
+
+	trace(this, "internal add to ", m_cRef);
+
+	return ret;
 }
 
 //
@@ -94,14 +105,15 @@ ULONG __stdcall CUnknown::NondelegatingAddRef()
 //
 ULONG __stdcall CUnknown::NondelegatingRelease()
 {
-	::InterlockedDecrement(&m_cRef) ;
-	if (m_cRef == 0)
+	auto ret = ::InterlockedDecrement(&m_cRef) ;
+	trace(this, "internal release to ", ret);
+	if (ret == 0)
 	{
 		FinalRelease() ;
 		delete this ;
 		return 0 ;
 	}
-	return m_cRef ;
+	return ret;
 }
 
 //
@@ -111,6 +123,7 @@ ULONG __stdcall CUnknown::NondelegatingRelease()
 //
 HRESULT CUnknown::FinishQI(IUnknown* pI, void** ppv) 
 {
+	trace(this, "FinishQI from ", m_cRef);
 	*ppv = pI ;
 	pI->AddRef() ;
 	return S_OK ;

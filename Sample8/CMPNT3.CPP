@@ -1,6 +1,8 @@
 //
 // Cmpnt3.cpp - Component 3
 //
+#include <iostream>
+
 #include <objbase.h>
 
 #include "Iface.h"
@@ -64,5 +66,6 @@ HRESULT CC::CreateInstance(IUnknown* pUnknownOuter,
                            CUnknown** ppNewComponent)
 {
 	*ppNewComponent = new CC(pUnknownOuter) ;
+	std::cout << "CC is " << (void*)*ppNewComponent <<'\n';
 	return S_OK ;
 }

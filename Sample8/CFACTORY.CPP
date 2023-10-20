@@ -8,6 +8,12 @@
 
 #include "Registry.h"
 #include "CFactory.h"
+#include "UTIL.H"
+
+static inline void trace(char* msg)
+{
+	Util::Trace("CFactory", msg, S_OK);
+}
 
 ///////////////////////////////////////////////////////////
 //
@@ -24,6 +30,7 @@ HMODULE CFactory::s_hModule = NULL ;   // DLL module handle
 CFactory::CFactory(const CFactoryData* pFactoryData)
 : m_cRef(1)
 {
+	trace("Constructing");
 	m_pFactoryData = pFactoryData ;
 }
 
@@ -32,16 +39,20 @@ CFactory::CFactory(const CFactoryData* pFactoryData)
 //
 HRESULT __stdcall CFactory::QueryInterface(REFIID iid, void** ppv)
 { 	
+	trace("QueryInterface");
 	IUnknown* pI ;
 	if ((iid == IID_IUnknown) || (iid == IID_IClassFactory))
 	{
+		trace("\tIID_IUnknown or IID_IClassFactory");
 		pI= this ;
 	}
 	else
 	{
+		trace("\tnot supported");
 		*ppv = NULL ;
 		return E_NOINTERFACE ;
 	}
+	trace("\tgoing to add ref on result");
 	pI->AddRef() ;
 	*ppv = pI ;
 	return S_OK ;
@@ -49,11 +60,13 @@ HRESULT __stdcall CFactory::QueryInterface(REFIID iid, void** ppv)
 
 ULONG __stdcall CFactory::AddRef()
 {
+	trace("AddRef");
 	return ::InterlockedIncrement(&m_cRef) ;
 }
 
 ULONG __stdcall CFactory::Release()
 {
+	trace("Release");
 	if (::InterlockedDecrement(&m_cRef) == 0)
 	{
 		delete this ;
@@ -69,14 +82,17 @@ HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
                                            const IID& iid,
                                            void** ppv)
 {
+	trace("CreateInstance");
 	// Aggregate only if the requested IID is IID_IUnknown.
 	if ((pUnknownOuter != NULL) && (iid != IID_IUnknown))
 	{
+		trace("\tCLASS_E_NOAGGREGATION");
 		return CLASS_E_NOAGGREGATION ;
 	}
 
 	// Create the component.
 	CUnknown* pNewComponent ;
+	trace("\t going to m_pFactoryData->CreateInstance");
 	HRESULT hr = m_pFactoryData->CreateInstance(pUnknownOuter,
 	                                            &pNewComponent) ;
 	if (FAILED(hr))
@@ -84,18 +100,22 @@ HRESULT __stdcall CFactory::CreateInstance(IUnknown* pUnknownOuter,
 		return hr ;
 	}
 
+	trace("\t going to pNewComponent->Init");
 	// Initialize the component.
 	hr = pNewComponent->Init() ;
 	if (FAILED(hr))
 	{
 		// Initialization failed.  Release the component.
+		trace("\t\t Failed. going to pNewComponent->NondelegatingRelease");
 		pNewComponent->NondelegatingRelease() ;
 		return hr ;
 	}
 
+	trace("\t going to pNewComponent->NondelegatingQueryInterface");
 	// Get the requested interface.
 	hr = pNewComponent->NondelegatingQueryInterface(iid, ppv) ;
 
+	trace("\t going to pNewComponent->NondelegatingRelease");
 	// Release the reference held by the class factory.
 	pNewComponent->NondelegatingRelease() ;
 	return hr ;

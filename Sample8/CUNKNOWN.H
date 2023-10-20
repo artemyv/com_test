@@ -28,9 +28,9 @@ class CUnknown : public INondelegatingUnknown
 public:
 	// Nondelegating IUnknown implementation
 	virtual HRESULT __stdcall NondelegatingQueryInterface(const IID&,
-	                                                      void**) ;
-	virtual ULONG   __stdcall NondelegatingAddRef() ;
-	virtual ULONG   __stdcall NondelegatingRelease() ;
+	                                                      void**) override;
+	virtual ULONG   __stdcall NondelegatingAddRef()  override;
+	virtual ULONG   __stdcall NondelegatingRelease() override;
 
 	// Constructor
 	CUnknown(IUnknown* pUnknownOuter) ;
