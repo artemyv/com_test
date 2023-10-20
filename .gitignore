@@ -37,3 +37,6 @@
 /Sample4/Client/x64/Debug
 /Sample4/Component/x64/Debug
 /Sample4/x64/Debug
+/Sample4_makefile/*.ilk
+/Sample4_makefile/*.pdb
+/Sample4_makefile/*.exp
