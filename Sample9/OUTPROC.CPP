@@ -1,9 +1,19 @@
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdlib.h>
 
 #include "CUnknown.h"
 #include "CFactory.h"
 #include "Resource.h"
+#include "Util.h"
+#include <format>
+
+template< class... Args >
+void trace(std::format_string<Args...> fmt, Args&&... args)
+{
+	auto msg = std::format(fmt, std::forward<Args>(args)...);
+	Util::Trace("exe", msg.c_str(), S_OK);
+}
 
 ///////////////////////////////////////////////////////////
 //
@@ -39,7 +49,7 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance,
 	{
 		return 0 ;
 	}
-   
+	Util::OpenLog("d:\\out_server.log");
    
 	// Get Thread ID.
 	CFactory::s_dwThreadID = ::GetCurrentThreadId() ;
@@ -47,7 +57,7 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance,
 
 	// Read the command line.
 	char szTokens[] = "-/" ;
-
+	trace("Started t:{} args: {}", CFactory::s_dwThreadID, lpCmdLine);
 	char* szToken = strtok(lpCmdLine, szTokens) ; 
 	while (szToken != NULL)
 	{
@@ -91,8 +101,10 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance,
 	if (!bExit)
 	{
 		// Register all of the class factories.
+		trace("CFactory::StartFactories");
 		CFactory::StartFactories() ;
 
+		trace("start app loop");
 		// Wait for shutdown.
 		MSG msg ;
 		while (::GetMessage(&msg, 0, 0, 0))
@@ -100,6 +112,7 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance,
 			::DispatchMessage(&msg) ;
 		}
 
+		trace("CFactory::StopFactories");
 		// Unregister the class factories.
 		CFactory::StopFactories() ;
 	}

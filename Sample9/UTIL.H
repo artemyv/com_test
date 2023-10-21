@@ -9,7 +9,7 @@
 namespace Util
 {
 	void Trace(const char* szLabel,const  char* szText, HRESULT hr) ;
-
+	bool OpenLog(const char* filename);
 } ;
 
 

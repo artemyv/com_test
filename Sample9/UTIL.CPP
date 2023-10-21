@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <format>
-
-// #include <tchar.h>
-
+#include <fstream>
+#include <string_view>
+#include <chrono>
 #include "util.h"
 
 #ifdef _OUTPROC_SERVER_ 
@@ -37,6 +37,25 @@
 //
 namespace Util
 {
+	std::ofstream log;
+	bool OpenLog(const char* filename)
+	{
+		log.open(filename, std::ios_base::app);
+		return log.good();
+	}
+	static inline void write_log(std::string_view sz)
+	{
+		if (log.good())
+		{
+			auto t = ::GetCurrentThreadId();
+
+			const auto now = std::chrono::system_clock::now();
+			auto log_line =  std::format("{:%d-%m-%Y %H:%M:%OS} t:{:5} - {}\n", now, t, sz);
+
+			log << log_line;
+		}
+	}
+
 //
 // Print out the COM/OLE error string for an HRESULT.
 //
@@ -71,7 +90,9 @@ namespace Util
 //
 void Trace(const char* szLabel, const char* szText, HRESULT hr)
 {
-	output(std::format("{}: \t{}{}", szLabel, szText, ErrorMessage(hr)).c_str());
+	auto line = std::format("{}: \t{}{}", szLabel, szText, ErrorMessage(hr));
+	output(line.c_str());
+	write_log(line);
 }
 
 
