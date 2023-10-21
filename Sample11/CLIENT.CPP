@@ -91,7 +91,8 @@ extern "C" int WINAPI WinMain( HINSTANCE hInstance,
 	{
 		return 0 ;
 	}
-   
+	Util::OpenLog("D:\\sample12_client.log");
+	trace("App started");
 	// Create the main window.
 	HWND hWndMain = InitWindow(nCmdShow) ;
 	if (hWndMain)
@@ -110,6 +111,7 @@ extern "C" int WINAPI WinMain( HINSTANCE hInstance,
 			::DispatchMessage(&msg) ;
 		}
 	}
+	trace("App finished");
 
 	// Uninitialize the COM Library.
 	CoUninitialize() ;

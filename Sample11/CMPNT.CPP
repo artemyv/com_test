@@ -22,6 +22,7 @@ static inline void trace(const char* msg, HRESULT hr)
 //
 HRESULT __stdcall CA::Tick(int delta) 
 { 
+	trace("Tick called");
 	CSimpleLock Lock(m_hCountMutex) ;
 
 	m_count += delta  ;
@@ -44,6 +45,7 @@ HRESULT __stdcall CA::GetCurrentCount(long* pCurrentCount)
 
 HRESULT __stdcall CA::Left()
 {
+	trace("Left called");
 	CSimpleLock Lock(m_hHandMutex) ;
 
 	m_bRightHand = FALSE ;
@@ -52,6 +54,7 @@ HRESULT __stdcall CA::Left()
 
 HRESULT __stdcall CA::Right()
 {
+	trace("Right called");
 	CSimpleLock Lock(m_hHandMutex) ;
 
 	m_bRightHand = TRUE ;

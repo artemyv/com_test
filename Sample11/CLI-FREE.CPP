@@ -7,6 +7,16 @@
 #include "Free.h"
 #include "Cli-Free.h"
 #include "Lock.h"
+#include "Util.h"
+
+static inline void trace(const char* msg)
+{
+	Util::Trace("CClientFree", msg, S_OK);
+}
+static inline void trace(const char* msg, HRESULT hr)
+{
+	Util::Trace("CClientFree", msg, hr);
+}
 
 ///////////////////////////////////////////////////////////
 //
@@ -45,7 +55,7 @@ HRESULT CClientFree::CreateComponentOnThread(const CLSID& clsid,
                                              const IID& iid,
                                              IUnknown** ppI) 
 {
-
+	trace("Calling CoCreateInstance and QueryInterface");
 	HRESULT hr =
 		::CoCreateInstance(clsid,
 		                   NULL, 
@@ -78,6 +88,7 @@ void CClientFree::WorkerFunction()
 
 	if (m_pIX)
 	{
+		trace("Calling Component functions Tick/Left");
 		m_pIX->Tick(1) ;
 		m_pIX->Left() ;
 	}
@@ -93,6 +104,7 @@ void CClientFree2::WorkerFunction()
 
 	if (m_pIX)
 	{
+		trace("Calling Component functions Tick/Right");
 		m_pIX->Tick(-1) ;
 		m_pIX->Right() ;
 	}

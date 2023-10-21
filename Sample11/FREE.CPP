@@ -114,6 +114,7 @@ BOOL CSimpleFree::StartThread(DWORD WaitTime)
 		m_hThread = NULL ;
 		return FALSE ;
 	}
+	trace("Thread is started thread.");
 
 	return TRUE ;
 }
@@ -124,17 +125,19 @@ BOOL CSimpleFree::StartThread(DWORD WaitTime)
 //
 void CSimpleFree::StopThread()
 {
+	trace("stopping thread");
 	if (m_hThread != NULL)
 	{
 		// Stop the thread.
 		// PostThreadMessage(m_ThreadId, WM_QUIT, 0,0) ;
 		SetEvent(m_hStopThreadEvent) ;
 
-		// Wait for thread to stop.
+		// Wait for thread to stop. - Why not wait on thread handle?
 		WaitWithMessageLoop(m_hComponentReadyEvent) ;
 
 		m_hThread = NULL ;
 	}
+	trace("thread is stopped");
 }
 	
 ///////////////////////////////////////////////////////////
@@ -163,22 +166,10 @@ DWORD WINAPI CSimpleFree::RealThreadProc(void* pv)
 BOOL CSimpleFree::ClassThreadProc()
 {
 	BOOL bReturn = FALSE ;
-
-	// Check for the existence of CoInitializeEx.
-	typedef HRESULT (__stdcall *FPCOMINITIALIZE)(void*, DWORD) ;
-	FPCOMINITIALIZE pCoInitializeEx = 
-		reinterpret_cast<FPCOMINITIALIZE>(
-			::GetProcAddress(::GetModuleHandle("ole32"),
-			                 "CoInitializeEx")) ;
-	if (pCoInitializeEx == NULL)
-	{
-		trace("This program requires the free-thread support in DCOM.") ;
-		SetEvent(m_hComponentReadyEvent) ;
-		return FALSE ;
-	}
-
+	trace("Thread started");
+	
 	// Initialize the COM Library.
-	HRESULT hr = pCoInitializeEx(0, COINIT_MULTITHREADED) ; //@
+	HRESULT hr = CoInitializeEx(0, COINIT_MULTITHREADED) ; //@
 	if (SUCCEEDED(hr))
 	{
 		// Signal that we are starting.
@@ -205,6 +196,7 @@ BOOL CSimpleFree::ClassThreadProc()
 
 			// Stop the thread.
 			case (WAIT_OBJECT_0 +1):
+				trace("Thread stop event detected");
 				bContinue = FALSE ;
 				bReturn = TRUE ;
 				break ;
@@ -286,6 +278,7 @@ HRESULT CSimpleFree::CreateComponent(const CLSID& clsid,
 void CSimpleFree::CreateComponentOnThread()
 {
 	IUnknown* pI = NULL;
+	trace("Starting creation of component");
 	// Call the derived class to actually create the component.
 	m_hr = CreateComponentOnThread(*m_pclsid, *m_piid, &pI) ;
 	if (SUCCEEDED(m_hr))

@@ -7,8 +7,10 @@
 #include <stdio.h>    //sprintf
 #include <stdlib.h>
 #include <assert.h>
-// #include <tchar.h>
-
+#include <format>
+#include <fstream>
+#include <string_view>
+#include <chrono>
 #include "util.h"
 
 #ifdef _OUTPROC_SERVER_ 
@@ -35,55 +37,77 @@
 //
 namespace Util
 {
-
-//
-// Print out a message with a label.
-//
-void Trace(const char* szLabel, const char* szText, HRESULT hr)
-{
-	char buf[256] ;
-	sprintf(buf, "%s:      \t%s", szLabel, szText) ;
-	output(buf) ;
-
-	if (FAILED(hr))
+	static std::string g_filename{};
+	bool OpenLog(const char* filename)
 	{
-		ErrorMessage(hr) ;
+		g_filename = filename;
+		return true;
 	}
-}
+	static inline void write_log(std::string_view sz)
+	{
+		auto t = ::GetCurrentThreadId();
 
-//
-// Print out the COM/OLE error string for an HRESULT.
-//
-void ErrorMessage(HRESULT hr)
-{
-	void* pMsgBuf ;
- 
-	::FormatMessage( 
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-		(LPTSTR)&pMsgBuf,
-		0,
-		NULL 
-	) ;
+		const auto now = std::chrono::system_clock::now();
+		auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000;
+		auto log_line = std::format("{:%d-%m-%Y %H:%M:%OS}.{:03} t:{:5} - {}\n", now, ms, t, sz);
 
-	char buf[256] ;
-	sprintf(buf, "Error (%x): %s", hr, (char*)pMsgBuf) ;
-	output(buf) ;
-		
-	// Free the buffer.
-	LocalFree(pMsgBuf) ;
-}
+		std::ofstream log(g_filename, std::ios_base::app);
 
-} ; // End Namespace Util
+		if (log.good())
+		{
+
+			log << log_line;
+		}
+	}
+
+	//
+	// Print out the COM/OLE error string for an HRESULT.
+	//
+	static std::string ErrorMessage(HRESULT hr)
+	{
+		if (SUCCEEDED(hr))
+		{
+			return {};
+		}
+		void* pMsgBuf;
+
+		::FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+			NULL,
+			hr,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			(LPTSTR)&pMsgBuf,
+			0,
+			NULL
+		);
+
+		auto ret = std::format(" Err: {:#x}: \t{}", hr, (const char*)pMsgBuf);
+
+		// Free the buffer.
+		LocalFree(pMsgBuf);
+		return ret;
+	}
+
+
+	//
+	// Print out a message with a label.
+	//
+	void Trace(const char* szLabel, const char* szText, HRESULT hr)
+	{
+		auto line = std::format("{}: \t{}{}", szLabel, szText, ErrorMessage(hr));
+		output(line.c_str());
+		write_log(line);
+	}
+
+
+}; // End Namespace Util
 
 
 //
 // Overloaded ostream insertion operator
 // Converts from wchar_t to char
 //
-std::ostream& operator<< ( std::ostream& os, const wchar_t* wsz )
+std::ostream& operator<< (std::ostream& os, const wchar_t* wsz )
 {
 	// Length of incoming string
 	int iLength = wcslen(wsz)+1 ;

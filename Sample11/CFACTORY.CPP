@@ -8,6 +8,7 @@
 
 #include "Registry.h"
 #include "CFactory.h"
+#include "Util.h"
 
 ///////////////////////////////////////////////////////////
 //
@@ -250,6 +251,8 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
+		Util::OpenLog("D:\\sample12_client.log");
+
 		CFactory::s_hModule = (HMODULE)hModule ;
 	}
 	return TRUE ;
