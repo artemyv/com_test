@@ -302,7 +302,7 @@ void OnTick()
 		HRESULT hr = g_pIX->GetCurrentCount(&c) ;
 		assert(SUCCEEDED(hr)) ;
 
-		char* pszhand ;
+		const char* pszhand ;
 		BOOL bRightHand = FALSE ;
 		hr = g_pIX->InRightHand(&bRightHand) ;
 		assert(SUCCEEDED(hr)) ;

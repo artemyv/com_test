@@ -10,9 +10,9 @@
 #include "Cmpnt.h"
 #include "Lock.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Component", msg, S_OK) ;} 
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Component", msg, hr) ;}
 
 
