@@ -8,9 +8,9 @@
 #include "CFactory.h"
 #include "Util.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{Util::Trace("CUnknown", msg, S_OK) ;} 
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{Util::Trace("CUnknown", msg, hr) ;}
 
 ///////////////////////////////////////////////////////////

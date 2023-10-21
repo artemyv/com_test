@@ -23,10 +23,10 @@
 
 #else
 // We are building an in-proc server.
-#include <iostream.h>
+#include <iostream>
 	static inline void output(const char* sz)
 	{
-		cout << sz << endl ;
+		std::cout << sz << std::endl ;
 	}
 #endif //_OUTPROC_SERVER_
 
@@ -39,7 +39,7 @@ namespace Util
 //
 // Print out a message with a label.
 //
-void Trace(char* szLabel, char* szText, HRESULT hr)
+void Trace(const char* szLabel, const char* szText, HRESULT hr)
 {
 	char buf[256] ;
 	sprintf(buf, "%s:      \t%s", szLabel, szText) ;
@@ -83,7 +83,7 @@ void ErrorMessage(HRESULT hr)
 // Overloaded ostream insertion operator
 // Converts from wchar_t to char
 //
-ostream& operator<< ( ostream& os, const wchar_t* wsz )
+std::ostream& operator<< ( std::ostream& os, const wchar_t* wsz )
 {
 	// Length of incoming string
 	int iLength = wcslen(wsz)+1 ;

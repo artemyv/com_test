@@ -1,10 +1,12 @@
 //
 // Client.cpp - Client implementation
 //
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h> 
 #include <stdlib.h>
 #include <objbase.h>
 #include <assert.h>
+#include <sstream>
 
 #define __OUTPROC_SERVER_ // To get the proper definition of trace
 #include "Util.h"
@@ -14,9 +16,9 @@
 #include "Apart.h"
 #include "Cli-Apt.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Client", msg, S_OK) ;} 
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Client", msg, hr) ;}
 
 ///////////////////////////////////////////////////////////
@@ -125,7 +127,7 @@ HWND InitWindow(int nCmdShow)
 	wcListview.hIcon =         ::LoadIcon(g_hModule,
 	                                      MAKEINTRESOURCE(IDC_ICON)) ;
 	wcListview.hCursor =       ::LoadCursor(NULL, IDC_ARROW) ;
-	wcListview.hbrBackground = ::GetStockObject(WHITE_BRUSH) ; 
+	wcListview.hbrBackground = (HBRUSH)::GetStockObject(WHITE_BRUSH);
 	wcListview.lpszMenuName =  NULL ;  
 	wcListview.lpszClassName = "MyServerWinClass" ;
 
@@ -240,12 +242,11 @@ void OnTick()
 		assert(SUCCEEDED(hr)) ;
 
 		// Display the count.
-		strstream sout ;
+		std::stringstream sout ;
 		sout << "The current count is : "
 		     << c 
-		     << "."
-		     << ends ;
-		trace(sout.str()) ;
+		     << ".\n";
+		trace(sout.str().c_str()) ;
 	}
 }
 

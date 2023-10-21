@@ -3,6 +3,8 @@
 //   - A simple C++ class, CSimpleApartment, encapsulates
 //     creating a component on an apartment thread.
 //
+#define WIN32_LEAN_AND_MEAN
+
 #include <windows.h>
 #include <stdlib.h>
 #include <objbase.h>
@@ -14,9 +16,9 @@
 
 #include "Apart.h"
 
-static inline void trace(char* msg)
+static inline void trace(const char* msg)
 	{ Util::Trace("Apartment", msg, S_OK) ;} 
-static inline void trace(char* msg, HRESULT hr)
+static inline void trace(const char* msg, HRESULT hr)
 	{ Util::Trace("Apartment", msg, hr) ;}
 
 ///////////////////////////////////////////////////////////
