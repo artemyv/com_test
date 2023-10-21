@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{bffb3b45-09e4-4bce-b2d4-05945542997f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IDL">
+      <UniqueIdentifier>{86cdc9b6-402a-4e4a-8c44-82f414138f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Share">
+      <UniqueIdentifier>{d567a2a1-7e99-43d4-a846-3f32c0b7c505}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Registry.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CUnknown.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CFactory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GdiVisl.h" />
+    <ClInclude Include="GdiWorld.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Registry.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CUnknown.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CFactory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\EventSink.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\Canvas_C.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\canvas_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\Event_I.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\model_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\visual_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\World_C.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\world_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="GdiVisl.cpp" />
+    <ClCompile Include="GdiWorld.cpp" />
+    <ClCompile Include="server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\idl\world_i.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\World_C.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\visual_i.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gdiworld.def" />
+  </ItemGroup>
+</Project>

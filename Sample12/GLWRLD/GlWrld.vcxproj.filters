@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{98d87644-0eb2-43b0-9739-72cfed7c5f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Share">
+      <UniqueIdentifier>{bc87cddf-faf8-47d6-ac86-f37b48dd369b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Idl">
+      <UniqueIdentifier>{c0da4783-0b21-4f98-8c1e-0635b00ff9ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\CFactory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CUnknown.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\EventSink.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Registry.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\Canvas_C.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\canvas_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\Event_I.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Share\GLVisl_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Share\GLWrld_C.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Share\GLWrld_I.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\world_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\visual_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\model_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="CGL-Pal.cpp" />
+    <ClCompile Include="CGL.cpp" />
+    <ClCompile Include="GLVisl.cpp" />
+    <ClCompile Include="GLWorld.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CFactory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CUnknown.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\EventSink.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Registry.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\Canvas_C.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\canvas_i.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\Event_I.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Share\GLVisl_i.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Share\GLWrld_C.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Share\GLWrld_I.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Share\WorldCat.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\world_i.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\visual_i.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\tantype.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\share\model_i.h">
+      <Filter>Share</Filter>
+    </ClInclude>
+    <ClInclude Include="CGL.h" />
+    <ClInclude Include="GLVisl.h" />
+    <ClInclude Include="GLWorld.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\idl\GLVisl_i.idl">
+      <Filter>Idl</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\GLWrld_C.idl">
+      <Filter>Idl</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\GLWrld_I.idl">
+      <Filter>Idl</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GLWorld.def" />
+  </ItemGroup>
+</Project>

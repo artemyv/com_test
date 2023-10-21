@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{d5496e6a-ae8c-4dbd-aa81-1c55e99b71ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IDL">
+      <UniqueIdentifier>{98805289-1686-4981-ad84-092440a572bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Share">
+      <UniqueIdentifier>{bba0d34b-f826-450a-9ec4-ab3df96469ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\CFactory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CUnknown.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="outproc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Registry.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\Event_I.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\model_c.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\model_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="CntPoint.cpp" />
+    <ClCompile Include="ConData.cpp" />
+    <ClCompile Include="EnumCon.cpp" />
+    <ClCompile Include="EnumCP.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CFactory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CUnknown.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Registry.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CntPoint.h" />
+    <ClInclude Include="Condata.h" />
+    <ClInclude Include="EnumCon.h" />
+    <ClInclude Include="EnumCP.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="server.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\idl\Event_I.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\model_c.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\model_i.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\tantype.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model.def" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="IDL">
+      <UniqueIdentifier>{eaa57235-afbd-43a1-81cd-2302a8405c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Share">
+      <UniqueIdentifier>{2be7db55-66fb-445f-98a3-d64146bae8f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{a0f17e34-ac1e-4eb7-b949-cb8d9f5f7165}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\share\Canvas_C.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\share\canvas_i.c">
+      <Filter>Share</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CFactory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CUnknown.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Registry.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CFactory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CUnknown.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Registry.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\idl\Canvas_C.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\idl\canvas_i.idl">
+      <Filter>IDL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="canvas.def" />
+  </ItemGroup>
+</Project>
