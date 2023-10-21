@@ -80,6 +80,7 @@ guids.obj : guids.c
 
 $(DIR_SERVER)\server.obj : server.cpp cunknown.h cfactory.h iface.h
 	echo Compiling server.obj in $(DIR_SERVER)
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS)  /Fo"$*.obj" server.cpp
 
 $(DIR_SERVER)\cmpnt1.obj : cmpnt1.cpp cmpnt1.h iface.h registry.h   \
