@@ -37,3 +37,9 @@
 *.ilk
 *.pdb
 *.exp
+/Sample9/dlldata.c
+/Sample9/guids.c
+/Sample9/iface.h
+/Sample9/proxy.c
+/Sample9/server.res
+/Sample9/server.tlb
