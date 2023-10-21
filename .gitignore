@@ -49,3 +49,8 @@
 /Sample10/Proxy.c
 /Sample10/Server.tlb
 /Sample10/dlldata.c
+/Sample11/Client.res
+/Sample11/Guids.c
+/Sample11/Iface.h
+/Sample11/Proxy.c
+/Sample11/dlldata.c

@@ -9,9 +9,9 @@ DIR_SERVER = InProc
 #
 # Flags - Always compiles debug.
 #
-CPP_FLAGS=/c /MTd /Zi /Od /D_DEBUG /D_WIN32_DCOM
-EXE_LINK_FLAGS= /NOD /DEBUG
-DLL_LINK_FLAGS=/NOD /DLL /DEBUG
+CPP_FLAGS=/c /MTd /Zi /Od /D_DEBUG /D_WIN32_DCOM /EHsc
+EXE_LINK_FLAGS= /DEBUG
+DLL_LINK_FLAGS= /DLL /DEBUG
 
 LIBS = kernel32.lib uuid.lib advapi32.lib ole32.lib
 
@@ -43,7 +43,6 @@ PROXYSTUBOBJS = Dlldata.obj  \
                 Guids.obj
 
 PROXYSTUBLIBS = kernel32.lib  \
-                rpcndr.lib    \
                 rpcns4.lib    \
                 rpcrt4.lib    \
                 uuid.lib
@@ -68,10 +67,12 @@ Guids.obj : Guids.c
 #
 
 $(DIR_SERVER)\Server.obj : Server.cpp CUnknown.h CFactory.h Iface.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) /Fo"$*.obj" Server.cpp
 
 $(DIR_SERVER)\Cmpnt.obj : Cmpnt.cpp Cmpnt.h Iface.h  \
 		Registry.h CUnknown.h Lock.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) /Fo"$*.obj" Cmpnt.cpp
 
 
@@ -80,16 +81,20 @@ $(DIR_SERVER)\Cmpnt.obj : Cmpnt.cpp Cmpnt.h Iface.h  \
 #
 
 $(DIR_SERVER)\CUnknown.obj : CUnknown.cpp CUnknown.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" CUnknown.cpp
 
 $(DIR_SERVER)\CFactory.obj : CFactory.cpp CFactory.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" CFactory.cpp
 
 $(DIR_SERVER)\Registry.obj : Registry.cpp Registry.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" Registry.cpp
 
 # Util.cpp compiled for server.
 $(DIR_SERVER)\Util.obj : Util.cpp Util.h
+	if not exist $(DIR_SERVER) mkdir $(DIR_SERVER)
 	cl $(CPP_FLAGS) $(SERVER) /Fo"$*.obj" Util.cpp
 
 #################################################
@@ -131,8 +136,7 @@ SERVER_OBJS = $(DIR_SERVER)\Server.obj    \
               Guids.obj
 
 Server.dll: $(SERVER_OBJS) Server.def
-	link $(DLL_LINK_FLAGS) $(SERVER_OBJS) libcmtd.lib  \
-		libcimtd.lib $(LIBS) /DEF:Server.def
+	link $(DLL_LINK_FLAGS) $(SERVER_OBJS) $(LIBS) /DEF:Server.def
 	regsvr32 -s Server.dll
 
 #################################################
@@ -147,5 +151,4 @@ CLIENT_OBJS = Client.obj    \
               Cli-Free.obj
 
 Client.exe : $(CLIENT_OBJS) Client.res
-	link $(EXE_LINK_FLAGS) $(CLIENT_OBJS) Client.res libcmtd.lib  \
-		libcimtd.lib $(LIBS) user32.lib gdi32.lib
+	link $(EXE_LINK_FLAGS) $(CLIENT_OBJS) Client.res  $(LIBS) user32.lib gdi32.lib

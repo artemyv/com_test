@@ -250,7 +250,7 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
-		CFactory::s_hModule = hModule ;
+		CFactory::s_hModule = (HMODULE)hModule ;
 	}
 	return TRUE ;
 }
