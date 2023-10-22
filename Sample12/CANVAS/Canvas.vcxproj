@@ -39,15 +39,11 @@
     <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Debug\</OutDir>
-    <IntDir>.\Debug\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
-    <IntDir>.\Release\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
+  <PropertyGroup>
+    <OutDir>.\$(Configuration)\</OutDir>
+    <IntDir>.\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -56,14 +52,16 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <Optimization>Disabled</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <WarningLevel>Level3</WarningLevel>
-      <MinimalRebuild>true</MinimalRebuild>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\Debug\Canvas.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Debug\</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command>regsvr32 -s -c  $(TargetPath)</Command>
@@ -73,8 +71,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\Debug\Canvas.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>..\share\%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -104,12 +104,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\Release\Canvas.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>../COMMON</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command>regsvr32 -s -c  $(TargetPath)</Command>
@@ -121,6 +124,7 @@
       <TypeLibraryName>.\Release\Canvas.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -146,8 +150,8 @@
     <ClCompile Include="..\Common\CUnknown.cpp" />
     <ClCompile Include="..\Common\Registry.cpp" />
     <ClCompile Include="..\Common\util.cpp" />
-    <ClCompile Include="..\share\Canvas_C.c" />
-    <ClCompile Include="..\share\canvas_i.c" />
+    <ClCompile Include="Canvas_C_i.c" />
+    <ClCompile Include="canvas_I_i.c" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
@@ -162,14 +166,11 @@
     <CustomBuild Include="canvas.def" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\Canvas_C.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\share\$(InputName).tlb;..\share\$(InputName).h;..\share\$(InputName).c;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\canvas_i.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-    </CustomBuild>
+    <Midl Include="..\idl\Canvas_C.idl" />
+    <Midl Include="..\IDL\CANVAS_I.IDL">
+      <GenerateTypeLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateTypeLibrary>
+      <GenerateTypeLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateTypeLibrary>
+    </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

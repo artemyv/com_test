@@ -296,11 +296,11 @@ STDAPI DllUnregisterServer()
 //
 BOOL APIENTRY DllMain(HANDLE hModule, 
 							 DWORD dwReason, 
-							 void* lpReserved )
+							 void* /*lpReserved*/ )
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
-		CFactory::s_hModule = hModule ;
+		CFactory::s_hModule = (HMODULE)hModule ;
 	}
 	return TRUE ;
 }

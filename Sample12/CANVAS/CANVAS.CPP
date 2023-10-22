@@ -7,7 +7,7 @@
 //
 #include <windows.h>
 
-#include "util.h"
+#include <util.h>
 #include "Canvas.h"
 
 ///////////////////////////////////////////////////////////
@@ -46,6 +46,7 @@ CCanvas::CCanvas(IUnknown* pOuterUnknown)
 :	CUnknown(pOuterUnknown),	
 	m_hWnd(NULL),
 	m_hbmp(NULL),
+	m_hbmOld(NULL),
 	m_pBits(NULL),
 	m_hdc(NULL),
 	m_hPal(NULL)
@@ -110,7 +111,7 @@ HRESULT CCanvas::Initialize(HWND hWnd, long cx, long cy)
 	BIH.biWidth = cx;
 	BIH.biHeight = cy;
 	BIH.biPlanes = 1;
-	BIH.biBitCount = ibitcount;
+	BIH.biBitCount = (WORD)ibitcount;
 	BIH.biCompression = BI_RGB;
 
 	// Create a new DC.

@@ -9,7 +9,7 @@
 //
 //
 #include "CUnknown.h"
-#include "Canvas_I.h"
+#include "Canvas_C.h"
 
 ///////////////////////////////////////////////////////////
 //

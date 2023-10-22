@@ -12,10 +12,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\share\Canvas_C.c">
+    <ClCompile Include="Canvas_C_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\canvas_i.c">
+    <ClCompile Include="canvas_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\CFactory.cpp">
@@ -49,12 +49,12 @@
     <ClInclude Include="Canvas.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\Canvas_C.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\canvas_i.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
     <CustomBuild Include="canvas.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\idl\Canvas_C.idl" />
+    <Midl Include="..\IDL\CANVAS_I.IDL">
+      <Filter>IDL</Filter>
+    </Midl>
   </ItemGroup>
 </Project>
