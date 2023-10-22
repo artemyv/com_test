@@ -22,7 +22,7 @@ CEnumConnections::CEnumConnections(CConnectDataList& ConnectData)
 	for(p = ConnectData.begin() ; p != ConnectData.end() ; p++)
 	{
 		// Copy the data into a temp structure
-		CONNECTDATA cd ;
+		CONNECTDATA cd{};
 		cd.dwCookie = p->dwCookie ;
 		cd.pUnk = p->pUnk ;
 
@@ -43,10 +43,9 @@ CEnumConnections::CEnumConnections(const CEnumConnections& X)
 :	CUnknown(NULL)
 {
 	// Copy the CConnectDataList AddRefing each interface pointer.
-	CConnectDataList::iterator p ; //TODO const
-	for(p = X.m_list.begin() ; p != X.m_list.end() ; p++)
+	for(auto p = X.m_list.begin() ; p != X.m_list.end() ; p++)
 	{
-		CONNECTDATA cd ;
+		CONNECTDATA cd{};
 		cd.dwCookie = p->dwCookie ;
 		cd.pUnk = p->pUnk ;
 		cd.pUnk->AddRef() ;

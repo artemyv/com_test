@@ -27,13 +27,13 @@
     <ClCompile Include="..\Common\util.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\Event_I.c">
+    <ClCompile Include="Event_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\model_c.c">
+    <ClCompile Include="model_c_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\model_i.c">
+    <ClCompile Include="model_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
     <ClCompile Include="CntPoint.cpp" />
@@ -70,18 +70,12 @@
     <ResourceCompile Include="server.rc" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\Event_I.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\model_c.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\model_i.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\tantype.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
     <CustomBuild Include="model.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\idl\Event_I.idl" />
+    <Midl Include="..\idl\model_c.idl" />
+    <Midl Include="..\idl\model_i.idl" />
+    <Midl Include="..\idl\tantype.idl" />
   </ItemGroup>
 </Project>

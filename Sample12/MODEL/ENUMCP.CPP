@@ -63,8 +63,7 @@ CEnumConnectionPoints::CEnumConnectionPoints(const CEnumConnectionPoints& X)
 :	CUnknown(NULL)
 {
 	// Copy the CConnectionPointList AddRefing each interface pointer.
-	CConnectionPointList::iterator p ; //TODO const
-	for(p = X.m_list.begin() ; p != X.m_list.end() ; p++)
+	for(auto p = X.m_list.begin() ; p != X.m_list.end() ; p++)
 	{
 		// Make sure to AddRef the pointer.
 		(*p)->AddRef() ;	

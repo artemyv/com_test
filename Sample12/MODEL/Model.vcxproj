@@ -105,11 +105,14 @@
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\Release\Model.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <PostBuildEvent>
       <Command>regsvr32 -s -c  $(TargetPath)</Command>
@@ -119,8 +122,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\Release\Model.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -150,11 +155,14 @@
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_OUTPROC_SERVER_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_OUTPROC_SERVER_;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>.\ModelRel\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\ModelRel\Model.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\ModelRel\</ObjectFileName>
       <ProgramDataBaseFileName>.\ModelRel\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <PostBuildEvent>
       <Command>$(TargetPath) /RegServer
@@ -165,8 +173,10 @@ nmake -f proxy.mak</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\ModelRel\Model.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -193,11 +203,14 @@ nmake -f proxy.mak</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_OUTPROC_SERVER_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_OUTPROC_SERVER_;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>.\LocalDbg\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\LocalDbg\Model.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\LocalDbg\</ObjectFileName>
       <ProgramDataBaseFileName>.\LocalDbg\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <PostBuildEvent>
       <Command>$(TargetPath) /RegServer
@@ -208,8 +221,10 @@ nmake -f proxy.mak</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\LocalDbg\Model.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -237,11 +252,14 @@ nmake -f proxy.mak</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\Debug\Model.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Debug\</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <PostBuildEvent>
       <Command>regsvr32 -s -c  $(TargetPath)</Command>
@@ -251,8 +269,10 @@ nmake -f proxy.mak</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\Debug\Model.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -274,14 +294,27 @@ nmake -f proxy.mak</Command>
       <ModuleDefinitionFile>.\model.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>../COMMON;../share</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CFactory.cpp" />
     <ClCompile Include="..\Common\CUnknown.cpp" />
     <ClCompile Include="..\Common\Registry.cpp" />
     <ClCompile Include="..\Common\util.cpp" />
-    <ClCompile Include="..\share\Event_I.c" />
-    <ClCompile Include="..\share\model_c.c" />
-    <ClCompile Include="..\share\model_i.c" />
+    <ClCompile Include="Event_I_i.c" />
+    <ClCompile Include="model_c_i.c" />
+    <ClCompile Include="model_I_i.c" />
     <ClCompile Include="CntPoint.cpp" />
     <ClCompile Include="ConData.cpp" />
     <ClCompile Include="EnumCon.cpp" />
@@ -309,59 +342,24 @@ nmake -f proxy.mak</Command>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\Event_I.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">..\share\$(InputName).h;..\share\$(InputName).c;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">..\share\$(InputName).h;..\share\$(InputName).c;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\share\$(InputName).h;..\share\$(InputName).c;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\model_c.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  /tlb           ..\share\%(Filename).tlb /dlldata dlldata_c.c %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;..\share\$(InputName).tlb;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  /tlb           ..\share\%(Filename).tlb /dlldata dlldata_c.c %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;..\share\$(InputName).tlb;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  /tlb           ..\share\%(Filename).tlb %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;..\share\$(InputName).tlb;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\model_i.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\tantype.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-    </CustomBuild>
+    <Midl Include="..\idl\Event_I.idl" />
+    <Midl Include="..\idl\model_c.idl" />
+    <Midl Include="..\idl\model_i.idl" />
+    <Midl Include="..\idl\tantype.idl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="model.def">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="server.rc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Local Server Release|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Local Server|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
     </ResourceCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
