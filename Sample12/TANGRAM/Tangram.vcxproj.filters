@@ -39,19 +39,19 @@
     <ClCompile Include="..\Common\util.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\canvas_i.c">
+    <ClCompile Include="..\CANVAS\canvas_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\model_c.c">
+    <ClCompile Include="..\MODEL\model_c_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\model_i.c">
+    <ClCompile Include="..\MODEL\model_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\visual_i.c">
+    <ClCompile Include="..\GDIWRLD\visual_i_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\world_i.c">
+    <ClCompile Include="..\GDIWRLD\world_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
   </ItemGroup>
