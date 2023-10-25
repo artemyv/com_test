@@ -242,10 +242,10 @@ HRESULT CTangramGdiVisual::DrawOn(ITangramCanvas* pCanvas)
 
 	// Make a pen.
 	HPEN hPen = ::CreatePen(PS_SOLID, 1, m_bSelected ? RGB(255,0,0) : RGB(128,128,128)) ;       
-	HPEN hOldPen = ::SelectObject(hDC, hPen) ;
+	HPEN hOldPen = (HPEN)::SelectObject(hDC, hPen);
 
 	// Make a brush.
-	HBRUSH hOldBrush = ::SelectObject(hDC, ::GetStockObject(m_bSelected ? NULL_BRUSH : LTGRAY_BRUSH)) ;
+	HBRUSH hOldBrush = (HBRUSH)::SelectObject(hDC, ::GetStockObject(m_bSelected ? NULL_BRUSH : LTGRAY_BRUSH));
 
 	// Draw the polygon.
 	::Polygon(hDC, m_ptVertices, m_cVertices) ;

@@ -43,25 +43,25 @@
     <ClCompile Include="..\Common\EventSink.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\Canvas_C.c">
+    <ClCompile Include="..\CANVAS\Canvas_C_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\canvas_i.c">
+    <ClCompile Include="..\CANVAS\canvas_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\Event_I.c">
+    <ClCompile Include="..\MODEL\Event_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\model_i.c">
+    <ClCompile Include="..\MODEL\model_i_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\visual_i.c">
+    <ClCompile Include="visual_i_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\World_C.c">
+    <ClCompile Include="World_C_i.c">
       <Filter>Share</Filter>
     </ClCompile>
-    <ClCompile Include="..\share\world_i.c">
+    <ClCompile Include="world_I_i.c">
       <Filter>Share</Filter>
     </ClCompile>
     <ClCompile Include="GdiVisl.cpp" />
@@ -69,15 +69,11 @@
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\world_i.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\World_C.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\visual_i.idl">
-      <Filter>IDL</Filter>
-    </CustomBuild>
     <CustomBuild Include="gdiworld.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\idl\visual_i.idl" />
+    <Midl Include="..\idl\World_C.idl" />
+    <Midl Include="..\idl\WORLD_I.IDL" />
   </ItemGroup>
 </Project>

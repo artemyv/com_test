@@ -15,11 +15,11 @@ import "unknwn.idl" ;
 ]
 interface ITangramCanvas : IUnknown
 {
-	//HRESULT Initialize([in] HWND hWnd, [in] long cx, [in] long cy) ;
-	//HRESULT Paint([in] HDC hdcDest, [in] RECT rectUpdate) ;
-	//HRESULT Update([in] RECT rectUpdate) ;
-	//HRESULT GetHDC([out] HDC* pHDC) ;  
-	//HRESULT SetPalette([in]HPALETTE hPal); 
-	//HRESULT OnQueryNewPalette([in] HWND hWndReceived) ;
+	HRESULT Initialize([in] HWND hWnd, [in] long cx, [in] long cy) ;
+	HRESULT Paint([in] HDC hdcDest, [in] RECT rectUpdate) ;
+	HRESULT Update([in] RECT rectUpdate) ;
+	HRESULT GetHDC([out] HDC* pHDC) ;  
+	HRESULT SetPalette([in]HPALETTE hPal); 
+	HRESULT OnQueryNewPalette([in] HWND hWndReceived) ;
 };
 

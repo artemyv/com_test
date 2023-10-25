@@ -86,8 +86,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\Debug\GdiWrld.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -135,8 +137,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TypeLibraryName>.\Release\GdiWrld.tlb</TypeLibraryName>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -164,6 +168,13 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <Midl>
+      <HeaderFileName>../share/%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
+      <AdditionalIncludeDirectories>../idl</AdditionalIncludeDirectories>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CFactory.cpp" />
@@ -171,13 +182,13 @@
     <ClCompile Include="..\Common\EventSink.cpp" />
     <ClCompile Include="..\Common\Registry.cpp" />
     <ClCompile Include="..\Common\util.cpp" />
-    <ClCompile Include="..\share\Canvas_C.c" />
-    <ClCompile Include="..\share\canvas_i.c" />
-    <ClCompile Include="..\share\Event_I.c" />
-    <ClCompile Include="..\share\model_i.c" />
-    <ClCompile Include="..\share\visual_i.c" />
-    <ClCompile Include="..\share\World_C.c" />
-    <ClCompile Include="..\share\world_i.c" />
+    <ClCompile Include="..\CANVAS\Canvas_C_i.c" />
+    <ClCompile Include="..\CANVAS\canvas_I_i.c" />
+    <ClCompile Include="..\MODEL\Event_I_i.c" />
+    <ClCompile Include="..\MODEL\model_i_i.c" />
+    <ClCompile Include="visual_i_i.c" />
+    <ClCompile Include="World_C_i.c" />
+    <ClCompile Include="world_I_i.c" />
     <ClCompile Include="GdiVisl.cpp" />
     <ClCompile Include="GdiWorld.cpp" />
     <ClCompile Include="server.cpp" />
@@ -194,20 +205,14 @@
     <CustomBuild Include="gdiworld.def" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\idl\visual_i.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\World_C.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  /tlb       ..\share\%(Filename).tlb %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;..\share\$(InputName).tlb;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\idl\world_i.idl">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">midl /h ..\share\%(Filename).h /iid ..\share\%(Filename).c  %(Filename).idl</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\share\$(InputName).c;..\share\$(InputName).h;%(Outputs)</Outputs>
-    </CustomBuild>
+    <Midl Include="..\idl\visual_i.idl" />
+    <Midl Include="..\idl\World_C.idl" />
+    <Midl Include="..\idl\WORLD_I.IDL" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CANVAS\Canvas.vcxproj">
+      <Project>{d30366d0-436d-4ed9-b864-d2c1f2f9f850}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\MODEL\Model.vcxproj">
       <Project>{70c478a0-d35c-444b-9e2a-c6cc0cb94d81}</Project>
     </ProjectReference>
