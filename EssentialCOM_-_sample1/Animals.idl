@@ -1,0 +1,74 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+import "unknwn.idl";
+[object, uuid(DF12E151-A29A-11d0-8C2D-0080C73925BA)]
+interface IAnimal : IUnknown {
+	HRESULT Eat(void);
+}
+[object, uuid(DF12E152-A29A-11d0-8C2D-0080C73925BA)]
+interface ICat : IAnimal {
+	HRESULT IgnoreMaster(void);
+}
+[object, uuid(DF12E153-A29A-11d0-8C2D-0080C73925BA)]
+interface IDog : IAnimal {
+	HRESULT Bark(void);
+}
+[object, uuid(DF12E154-A29A-11d0-8C2D-0080C73925BA)]
+interface IPug : IDog {
+	HRESULT Snore(void);
+}
+[object, uuid(DF12E155-A29A-11d0-8C2D-0080C73925BA)]
+interface IOldPug : IPug {
+	HRESULT SnoreLoudly(void);
+}
+[object, uuid(753A8A7C-A7FF-11d0-8C30-0080C73925BA)]
+interface IApe : IUnknown {
+import "unknwn.idl";
+	HRESULT EatBanana(void);
+	HRESULT SwingFromTree(void);
+	[propget] HRESULT Weight([out, retval] long* plbs);
+}
+
+[object, uuid(DF12E156-A29A-11d0-8C2D-0080C73925BA)]
+interface IAllTypes : IUnknown {
+	enum PrimitiveEnum1 {
+		ENUM1,
+		ENUM2,
+		ENUM3
+	};
+
+	enum PrimitiveEnum2 {
+		ENUM4 = 10,
+		ENUM5 = 20,
+		ENUM6 = 30
+	};
+
+	struct Parameters
+	{
+		boolean        boolean_member;
+		BSTR           BSTR_member;
+		byte           byte_member;
+		char           char_member;
+		double         double_member;
+		float          float_member;
+		long           long_member;
+		short          short_member;
+		VARIANT        VARIANT_member;
+		VARIANT_BOOL   VARIANT_BOOL_member;
+		wchar_t        wchar_t_member;
+		unsigned short unsigned_short_member;
+		unsigned long unsigned_long_member;
+		long long long_long_member;
+		unsigned long long unsigned_long_long_member;
+		long double        long_double_member;
+		long* member;
+		enum PrimitiveEnum1   enam1_member;
+		enum PrimitiveEnum2   enam2_member;
+		short short_array[2];
+		short short_array2[1][2];
+		const OLECHAR* pwsz;
+	};
+
+	HRESULT set(struct Parameters p);
+}
