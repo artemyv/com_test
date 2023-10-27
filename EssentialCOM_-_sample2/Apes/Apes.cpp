@@ -8,6 +8,7 @@
 #include <locale>
 class ATL_NO_VTABLE Gorilla :
 	public ATL::CComObjectRootEx<CComMultiThreadModelNoCS>,
+	public CComCoClass<Gorilla, &CLSID_Gorilla>,
 	public IApe,
 	public IWarrior
 {
@@ -15,6 +16,8 @@ class ATL_NO_VTABLE Gorilla :
 		COM_INTERFACE_ENTRY(IApe)
 		COM_INTERFACE_ENTRY(IWarrior)
 	END_COM_MAP()
+
+	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -51,6 +54,7 @@ class ATL_NO_VTABLE Gorilla :
 
 class ATL_NO_VTABLE Chimpanzee :
 	public ATL::CComObjectRootEx<CComMultiThreadModelNoCS>,
+	public CComCoClass<Chimpanzee, &CLSID_Chimpanzee>,
 	public IApe,
 	public IEgghead
 {
@@ -58,6 +62,7 @@ class ATL_NO_VTABLE Chimpanzee :
 		COM_INTERFACE_ENTRY(IApe)
 		COM_INTERFACE_ENTRY(IWarrior)
 	END_COM_MAP()
+	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -95,6 +100,7 @@ class ATL_NO_VTABLE Chimpanzee :
 
 class ATL_NO_VTABLE Orangutan :
 	public ATL::CComObjectRootEx<CComMultiThreadModelNoCS>,
+	public CComCoClass<Orangutan, &CLSID_Orangutan>,
 	public IApe,
 	public IKeeperOfTheFaith
 {
@@ -102,6 +108,7 @@ class ATL_NO_VTABLE Orangutan :
 		COM_INTERFACE_ENTRY(IApe)
 		COM_INTERFACE_ENTRY(IWarrior)
 	END_COM_MAP()
+	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -160,3 +167,7 @@ class ATL_NO_VTABLE Orangutan :
 	}
 
 };
+
+OBJECT_ENTRY_AUTO(__uuidof(Gorilla), Gorilla)
+OBJECT_ENTRY_AUTO(__uuidof(Chimpanzee), Chimpanzee)
+OBJECT_ENTRY_AUTO(__uuidof(Orangutan), Orangutan)
