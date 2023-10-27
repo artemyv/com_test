@@ -38,6 +38,9 @@
     <ClCompile Include="Apes_i.c">
       <Filter>Generated</Filter>
     </ClCompile>
+    <ClCompile Include="Apes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Apes.idl">

@@ -23,13 +23,13 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Apeitfs_h.h">
-      <Filter>Generated</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Apeitfs_i.c">
       <Filter>Generated</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Apeitfs.h">
+      <Filter>Generated</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

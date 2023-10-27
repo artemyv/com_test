@@ -19,12 +19,12 @@ library ApeLib
 	}
 	[uuid(753A8A7E-A7FF-11d0-8C30-0080C73925BA)]
 	coclass Chimpanzee {
-	[default] interface IApe;
+		[default] interface IApe;
 		interface IEgghead;
 	}
 	[uuid(753A8A7F-A7FF-11d0-8C30-0080C73925BA)]
 	coclass Orangutan {
-	[default] interface IApe;
+		[default] interface IApe;
 		interface IKeeperOfTheFaith;
 	}
 }
