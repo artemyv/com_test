@@ -85,3 +85,9 @@
 /EssentialCOM_-_sample1/Animals_i.c
 /EssentialCOM_-_sample1/Animals_p.c
 /EssentialCOM_-_sample1/dlldata.c
+/EssentialCOM_-_sample2/Apes/Apes_h.h
+/EssentialCOM_-_sample2/Apes/Apes_i.c
+/EssentialCOM_-_sample2/Interface/Apeitfs_h.h
+/EssentialCOM_-_sample2/Interface/Apeitfs_i.c
+/EssentialCOM_-_sample2/Interface/Apeitfs_p.c
+/EssentialCOM_-_sample2/Interface/dlldata.c

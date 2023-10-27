@@ -1,0 +1,28 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[object, uuid(753A8A7C-A7FF-11d0-8C30-0080C73925BA)]
+interface IApe : IUnknown {
+import "unknwn.idl";
+	HRESULT EatBanana(void);
+	HRESULT SwingFromTree(void);
+	[propget] HRESULT Weight([out, retval] long* plbs);
+}
+
+[object, uuid(753A8A8C-A7FF-11d0-8C30-0080C73925BA)]
+interface IWarrior : IUnknown {
+import "unknwn.idl";
+	HRESULT Hit(long streangth);
+}
+
+[object, uuid(753A8A9C-A7FF-11d0-8C30-0080C73925BA)]
+interface IEgghead : IUnknown {
+import "unknwn.idl";
+	HRESULT Laugh(long loud);
+}
+
+[object, uuid(753A8A9D-A7FF-11d0-8C30-0080C73925BA)]
+interface IKeeperOfTheFaith : IUnknown {
+import "unknwn.idl";
+	HRESULT Keep(BSTR sound);
+}

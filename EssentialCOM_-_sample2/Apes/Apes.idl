@@ -1,0 +1,30 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+// apes.idl
+// bring in IDL definitions of ape interfaces
+import "apeitfs.idl";
+[
+	uuid(753A8A80-A7FF-11d0-8C30-0080C73925BA), // LIBID
+	version(1.0), // version number of library
+	helpstring("Library of the Apes") // title of library
+]
+library ApeLib
+{
+	importlib("stdole32.tlb"); // bring in std defs.
+	[uuid(753A8A7D-A7FF-11d0-8C30-0080C73925BA)]
+	coclass Gorilla {
+		[default] interface IApe;
+		interface IWarrior;
+	}
+	[uuid(753A8A7E-A7FF-11d0-8C30-0080C73925BA)]
+	coclass Chimpanzee {
+	[default] interface IApe;
+		interface IEgghead;
+	}
+	[uuid(753A8A7F-A7FF-11d0-8C30-0080C73925BA)]
+	coclass Orangutan {
+	[default] interface IApe;
+		interface IKeeperOfTheFaith;
+	}
+}
