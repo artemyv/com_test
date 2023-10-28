@@ -1,0 +1,1 @@
+regsvr32 "..\x64\Debug\Apes.dll

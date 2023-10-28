@@ -1,11 +1,18 @@
 #include "pch.h"
 
 #include "Apes_h.h"
+#include "resource.h"
+#include "DllModule.h"
+#include <registrymap.hpp>
+
 #include <atlbase.h>
 #include <atlcom.h>
 #include <print>
 #include <string_view>
 #include <locale>
+
+
+
 class ATL_NO_VTABLE Gorilla :
 	public ATL::CComObjectRootEx<CComMultiThreadModelNoCS>,
 	public CComCoClass<Gorilla, &CLSID_Gorilla>,
@@ -17,7 +24,17 @@ class ATL_NO_VTABLE Gorilla :
 		COM_INTERFACE_ENTRY(IWarrior)
 	END_COM_MAP()
 
-	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
+	DECLARE_REGISTRY_RESOURCEID_EX(IDR_LOCAL_SERVER_RGS)
+
+	BEGIN_REGISTRY_MAP()
+		REGMAP_ENTRY("HKROOT", "HKCU")
+		REGMAP_MODULE("MODULE")
+		REGMAP_ENTRY("VERSION", "1.0")
+		REGMAP_ENTRY("PROGID", "Ape.Gorilla")
+		REGMAP_ENTRY("DESCRIPTION", "ApesLib Gorilla class")
+		REGMAP_UUID("CLSID", GetObjectCLSID())
+	END_REGISTRY_MAP()
+
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -36,7 +53,7 @@ class ATL_NO_VTABLE Gorilla :
 	/* [propget] */ HRESULT STDMETHODCALLTYPE get_Weight(
 		/* [retval][out] */ long* plbs) override
 	{
-			std::println("Gorilla wheights 100 kg");
+			std::println("Gorilla weights 100 kg");
 			if (plbs == nullptr)
 				return E_POINTER;
 			*plbs = 100;
@@ -58,11 +75,21 @@ class ATL_NO_VTABLE Chimpanzee :
 	public IApe,
 	public IEgghead
 {
-	BEGIN_COM_MAP(Gorilla)
+	BEGIN_COM_MAP(Chimpanzee)
 		COM_INTERFACE_ENTRY(IApe)
-		COM_INTERFACE_ENTRY(IWarrior)
+		COM_INTERFACE_ENTRY(IEgghead)
 	END_COM_MAP()
-	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
+
+	DECLARE_REGISTRY_RESOURCEID_EX(IDR_LOCAL_SERVER_RGS)
+
+	BEGIN_REGISTRY_MAP()
+		REGMAP_ENTRY("HKROOT", "HKCU")
+		REGMAP_MODULE("MODULE")
+		REGMAP_ENTRY("VERSION", "1.0")
+		REGMAP_ENTRY("PROGID", "Ape.Chimpanzee")
+		REGMAP_ENTRY("DESCRIPTION", "ApesLib Chimpanzee class")
+		REGMAP_UUID("CLSID", GetObjectCLSID())
+	END_REGISTRY_MAP()
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -82,7 +109,7 @@ class ATL_NO_VTABLE Chimpanzee :
 	/* [propget] */ HRESULT STDMETHODCALLTYPE get_Weight(
 		/* [retval][out] */ long* plbs) override
 	{
-		std::println("Chimpanzee wheights 180 kg");
+		std::println("Chimpanzee weights 180 kg");
 		if (plbs == nullptr)
 			return E_POINTER;
 		*plbs = 180;
@@ -100,15 +127,25 @@ class ATL_NO_VTABLE Chimpanzee :
 
 class ATL_NO_VTABLE Orangutan :
 	public ATL::CComObjectRootEx<CComMultiThreadModelNoCS>,
-	public CComCoClass<Orangutan, &CLSID_Orangutan>,
+	public ATL::CComCoClass<Orangutan, &CLSID_Orangutan>,
 	public IApe,
 	public IKeeperOfTheFaith
 {
-	BEGIN_COM_MAP(Gorilla)
+	BEGIN_COM_MAP(Orangutan)
 		COM_INTERFACE_ENTRY(IApe)
-		COM_INTERFACE_ENTRY(IWarrior)
+		COM_INTERFACE_ENTRY(IKeeperOfTheFaith)
 	END_COM_MAP()
-	static HRESULT WINAPI UpdateRegistry(_In_ BOOL bRegister);
+
+	DECLARE_REGISTRY_RESOURCEID_EX(IDR_LOCAL_SERVER_RGS)
+
+	BEGIN_REGISTRY_MAP()
+		REGMAP_ENTRY("HKROOT", "HKCU")
+		REGMAP_MODULE("MODULE")
+		REGMAP_ENTRY("VERSION", "1.0")
+		REGMAP_ENTRY("PROGID", "Ape.Orangutan")
+		REGMAP_ENTRY("DESCRIPTION", "ApesLib Orangutan class")
+		REGMAP_UUID("CLSID", GetObjectCLSID())
+	END_REGISTRY_MAP()
 
 	/* IApe */
 	HRESULT STDMETHODCALLTYPE EatBanana(void) override
@@ -128,7 +165,7 @@ class ATL_NO_VTABLE Orangutan :
 	/* [propget] */ HRESULT STDMETHODCALLTYPE get_Weight(
 		/* [retval][out] */ long* plbs) override
 	{
-		std::println("Orangutan wheights 280 kg");
+		std::println("Orangutan weights 280 kg");
 		if (plbs == nullptr)
 			return E_POINTER;
 		*plbs = 280;

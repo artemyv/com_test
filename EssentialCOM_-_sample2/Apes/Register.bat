@@ -1,0 +1,1 @@
+regsvr32 /s /n /i:user "..\x64\Debug\Apes.dll
