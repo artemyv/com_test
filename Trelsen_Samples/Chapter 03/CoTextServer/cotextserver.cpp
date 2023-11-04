@@ -10,7 +10,8 @@ ULONG g_objCount = 0;
 // DllGetClassObject() is in charge of creating a class factory, and returning the 
 // IClassFactory interface to the COM client.
 //
-STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void** ppv)
+_Check_return_
+STDAPI  DllGetClassObject(_In_ REFCLSID rclsid, _In_ REFIID riid, _Outptr_ LPVOID FAR* ppv)
 {
 	HRESULT hr;
 	TextFactory* pFact = NULL;
@@ -30,10 +31,11 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void** ppv)
 	return hr;
 }
 
-STDAPI DllCanUnloadNow(void)
+__control_entrypoint(DllExport)
+STDAPI  DllCanUnloadNow(void)
 {
 	if(g_lockCount == 0 && g_objCount == 0) {
-		MessageBoxW(NULL, L"CoText dead", L"Message", MB_OK | MB_SETFOREGROUND);
+		MessageBoxW(NULL, L"No more objects - DllCanUnloadNow", L"Message", MB_OK | MB_SETFOREGROUND);
 		return S_OK;		// Unload me.	
 	}
 	else

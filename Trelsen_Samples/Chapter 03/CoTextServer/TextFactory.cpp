@@ -42,7 +42,9 @@ ULONG STDMETHODCALLTYPE TextFactory::Release()
 // which looks like the following.  Again note that there are no provisions for
 // the interfaces supported by the related coclass (CoHexagon).
 //
-STDMETHODIMP TextFactory::QueryInterface(REFIID riid, void** pIFace)
+HRESULT STDMETHODCALLTYPE TextFactory::QueryInterface(
+	/* [in] */ REFIID riid,
+	/* [iid_is][out] */ _COM_Outptr_ void __RPC_FAR* __RPC_FAR* pIFace)
 {
 	if(riid == IID_IUnknown)
 		*pIFace = (IUnknown*)this;
