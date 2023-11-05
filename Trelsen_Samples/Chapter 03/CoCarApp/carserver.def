@@ -1,0 +1,5 @@
+LIBRARY "CARSERVER"
+
+EXPORTS
+	DllGetClassObject	@1	PRIVATE
+	DllCanUnloadNow		@2	PRIVATE
