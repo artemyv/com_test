@@ -1,0 +1,11 @@
+REGEDIT
+
+; This is the ProgID
+HKEY_CLASSES_ROOT\CarInProcServer.CoCar\CLSID = {7AD2D539-EE35-11d2-B8DE-0020781238D4}
+
+; A CLSID entry typically has these two lines
+HKEY_CLASSES_ROOT\CLSID\{7AD2D539-EE35-11d2-B8DE-0020781238D4} = CarInProcServer.CoCar
+HKEY_CLASSES_ROOT\CLSID\{7AD2D539-EE35-11d2-B8DE-0020781238D4}\InprocServer32 = C:\My Documents\ATL\Labs\Chapter 03\CarInProcServer\Debug\CarInProcServer.dll
+
+
+

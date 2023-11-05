@@ -1,0 +1,4 @@
+LIBRARY "COTEXTSERVER"
+EXPORTS
+	DllGetClassObject		PRIVATE
+	DllCanUnloadNow		PRIVATE
